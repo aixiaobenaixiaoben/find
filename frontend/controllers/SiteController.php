@@ -15,6 +15,7 @@ use yii\filters\AccessControl;
 
 /**
  * Site controller
+ * by kevin
  */
 class SiteController extends Controller
 {
@@ -74,6 +75,7 @@ class SiteController extends Controller
     {
         return $this->render('index');
     }
+
 
     /**
      * Logs in a user.
