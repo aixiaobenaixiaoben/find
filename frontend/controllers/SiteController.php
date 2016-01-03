@@ -15,7 +15,6 @@ use yii\filters\AccessControl;
 
 /**
  * Site controller
- * by kevin
  */
 class SiteController extends Controller
 {
