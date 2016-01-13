@@ -25,6 +25,19 @@ return [
                 ],
             ],
         ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'enableStrictParsing' => false,
+            'showScriptName' => false,
+//            'suffix' => '.html',//设置URL后缀
+            'rules' => [
+                '<id:\d+>' => 'index/view',
+                '<controller:[-\w]+>/<id:\d+>' => '<controller>/view',
+                '<controller:[-\w]+>/<action:[-\w]+>' => '<controller>/<action>',
+                '<controller:[-\w]+>/<action:[-\w]+>/<id:\d+>' => '<controller>/<action>',
+                '<module:[-\w]+>/<controller:[-\w]+>/<action:[-\w]+>' => '<module>/<controller>/<action>',
+            ],
+        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
