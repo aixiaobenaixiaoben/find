@@ -7,14 +7,14 @@ use yii\grid\GridView;
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
- * @var frontend\modules\admin\models\adminSearch $searchModel
+ * @var frontend\modules\admin\models\EventSearch $searchModel
  */
 
-$this->title = 'Admins';
+$this->title = 'Events';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="giiant-crud admin-index">
+<div class="giiant-crud event-index">
 
     <?php //             echo $this->render('_search', ['model' =>$searchModel]);
     ?>
@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php \yii\widgets\Pjax::begin(['id' => 'pjax-main', 'enableReplaceState' => false, 'linkSelector' => '#pjax-main ul.pagination a, th a', 'clientOptions' => ['pjax:success' => 'function(){alert("yo")}']]) ?>
 
     <h1>
-        <?= 'Admins' ?>
+        <?= 'Events' ?>
         <small>
             List
         </small>
@@ -50,6 +50,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         'items' => [[
                             'url' => ['user/index'],
                             'label' => '<i class="glyphicon glyphicon-arrow-right">&nbsp;' . 'User' . '</i>',
+                        ], [
+                            'url' => ['location-current/index'],
+                            'label' => '<i class="glyphicon glyphicon-arrow-right">&nbsp;' . 'Location Current' . '</i>',
+                        ], [
+                            'url' => ['location-new/index'],
+                            'label' => '<i class="glyphicon glyphicon-arrow-right">&nbsp;' . 'Location New' . '</i>',
                         ],]
                     ],
                     'options' => [
@@ -97,9 +103,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'format' => 'raw',
                 ],
-                'is_blocked',
+                'theme',
+                'is_finished',
+                'description:ntext',
+                [
+                    'attribute' => 'urgent',
+                    'value' => function ($model) {
+                        return common\models\event\Event::getUrgentValueLabel($model->urgent);
+                    }
+                ],
+                'occur_at',
                 'created_at',
-                'updated_at',
+                'updated_at'
             ],
         ]); ?>
     </div>
