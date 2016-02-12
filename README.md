@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Yii 2 Advanced Project Template
 ===============================
 
@@ -55,4 +54,3 @@ tests                    contains various tests for the advanced application
 ```
 =======
 # find
->>>>>>> 2f2cc4b2a852299788756d7740e93f9fd8185716

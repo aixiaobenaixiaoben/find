@@ -11,7 +11,7 @@ class m160211_115947_create_location_current extends Migration
         $this->createTable('location_current', [
             'id' => Schema::TYPE_PK,
             'user_id' => Schema::TYPE_INTEGER . ' NOT NULL',
-            'case_id' => Schema::TYPE_INTEGER . ' NOT NULL',
+            'event_id' => Schema::TYPE_INTEGER . ' NOT NULL',
             'is_origin' => Schema::TYPE_BOOLEAN . ' NOT NULL DEFAULT 0',
             'title' => Schema::TYPE_STRING . '(255) NOT NULL',
             'latitude' => Schema::TYPE_DECIMAL . '(13,10) NOT NULL',
@@ -21,7 +21,7 @@ class m160211_115947_create_location_current extends Migration
         ], Common::getTableOptions($this->db));
 
         $this->addForeignKey('location_current_user_id', 'location_current', 'user_id', 'user', 'id');
-        $this->addForeignKey('location_current_case_id', 'location_current', 'case_id', 'case', 'id');
+        $this->addForeignKey('location_current_event_id', 'location_current', 'event_id', 'event', 'id');
     }
 
     public function safeDown()

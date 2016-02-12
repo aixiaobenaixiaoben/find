@@ -26,7 +26,7 @@ return [
             ],
         ],
         'urlManager' => [
-            'enablePrettyUrl' => false,
+            'enablePrettyUrl' => true,
             'enableStrictParsing' => false,
             'showScriptName' => false,
 //            'suffix' => '.html',//设置URL后缀
