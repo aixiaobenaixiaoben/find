@@ -22,7 +22,7 @@ use Yii;
  *
  * @property \common\models\event\Event $event
  * @property \common\models\location\LocationProvider $provider
- * @property \common\models\user\User $user
+ * @property \common\models\User $user
  */
 abstract class LocationNew extends \yii\db\ActiveRecord
 {
@@ -91,7 +91,7 @@ abstract class LocationNew extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(\common\models\user\User::className(), ['id' => 'user_id']);
+        return $this->hasOne(\common\models\User::className(), ['id' => 'user_id']);
     }
 
 

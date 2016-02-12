@@ -10,6 +10,13 @@ return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+
+    'modules' => [
+        'admin' => [
+            'class' => 'app\modules\admin\Module',
+        ],
+    ],
+
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
         'user' => [
@@ -26,7 +33,7 @@ return [
             ],
         ],
         'urlManager' => [
-            'enablePrettyUrl' => true,
+            'enablePrettyUrl' => false,
             'enableStrictParsing' => false,
             'showScriptName' => false,
 //            'suffix' => '.html',//设置URL后缀

@@ -15,7 +15,7 @@ use Yii;
  * @property string $created_at
  * @property string $updated_at
  *
- * @property \common\models\user\User $user
+ * @property \common\models\User $user
  */
 abstract class Admin extends \yii\db\ActiveRecord
 {
@@ -62,7 +62,7 @@ abstract class Admin extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(\common\models\user\User::className(), ['id' => 'user_id']);
+        return $this->hasOne(\common\models\User::className(), ['id' => 'user_id']);
     }
 
 

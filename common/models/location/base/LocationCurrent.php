@@ -20,7 +20,7 @@ use Yii;
  * @property string $created_at
  *
  * @property \common\models\event\Event $event
- * @property \common\models\user\User $user
+ * @property \common\models\User $user
  */
 abstract class LocationCurrent extends \yii\db\ActiveRecord
 {
@@ -80,7 +80,7 @@ abstract class LocationCurrent extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(\common\models\user\User::className(), ['id' => 'user_id']);
+        return $this->hasOne(\common\models\User::className(), ['id' => 'user_id']);
     }
 
 
