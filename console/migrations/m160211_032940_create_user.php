@@ -19,7 +19,7 @@ class m160211_032940_create_user extends Migration
             'is_block' => Schema::TYPE_BOOLEAN . ' NOT NULL DEFAULT 0',
             'is_activated' => Schema::TYPE_BOOLEAN . ' NOT NULL DEFAULT 0',
             'created_at' => Schema::TYPE_TIMESTAMP . ' NOT NULL DEFAULT CURRENT_TIMESTAMP',
-            'updated_at' => Schema::TYPE_TIMESTAMP . ' NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP',
+            'updated_at' => Schema::TYPE_TIMESTAMP . ' NULL DEFAULT NULL',
         ], Common::getTableOptions($this->db));
 
         $this->createIndex('user_username_unique', 'user', 'username', true);
