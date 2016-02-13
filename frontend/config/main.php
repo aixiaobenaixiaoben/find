@@ -13,8 +13,15 @@ return [
 
     'modules' => [
         'admin' => [
-            'class' => 'app\modules\admin\Module',
+            'class' => 'frontend\modules\admin\Module',
         ],
+        'find' => [
+            'class' => 'frontend\modules\find\Module',
+        ],
+        'user' => [
+            'class' => 'frontend\modules\user\Module',
+        ],
+
     ],
 
     'controllerNamespace' => 'frontend\controllers',
