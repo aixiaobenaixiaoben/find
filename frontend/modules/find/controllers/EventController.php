@@ -19,6 +19,16 @@ class EventController extends \yii\web\Controller
         return $this->render('event');
     }
 
+    public function actionGetEventLists()
+    {
+
+    }
+
+    public function actionPreCreateEvent()
+    {
+
+    }
+
     public function actionCreateEvent()
     {
         $event = new CreateEventForm();
@@ -32,5 +42,11 @@ class EventController extends \yii\web\Controller
         }
         AjaxResponse::fail(null, $event->errors);
     }
+
+    public function actionChangeEventUrgentLevel()
+    {
+
+    }
+
 
 }

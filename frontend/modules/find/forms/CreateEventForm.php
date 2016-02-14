@@ -161,7 +161,7 @@ class CreateEventForm extends Model
 
     public function getLocationNew()
     {
-        return $this->_location_current;
+        return $this->_location_new;
     }
 
     public function getLocationCurrent()

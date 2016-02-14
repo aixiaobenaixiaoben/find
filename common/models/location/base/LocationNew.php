@@ -18,6 +18,7 @@ use Yii;
  * @property string $latitude
  * @property string $longitude
  * @property integer $is_reliable
+ * @property string $occur_at
  * @property string $created_at
  *
  * @property \common\models\event\Event $event
@@ -45,7 +46,7 @@ abstract class LocationNew extends \yii\db\ActiveRecord
             [['user_id', 'event_id', 'provider_id', 'title_from_provider', 'title_from_API', 'latitude', 'longitude'], 'required'],
             [['user_id', 'event_id', 'provider_id', 'is_reliable'], 'integer'],
             [['latitude', 'longitude'], 'number'],
-            [['created_at'], 'safe'],
+            [['created_at', 'occur_at'], 'safe'],
             [['title_from_provider', 'title_from_API'], 'string', 'max' => 255],
             [['event_id', 'provider_id', 'latitude', 'longitude'], 'unique', 'targetAttribute' => ['event_id', 'provider_id', 'latitude', 'longitude'], 'message' => 'The combination of Event ID, Provider ID, Latitude and Longitude has already been taken.']
         ];
@@ -66,6 +67,7 @@ abstract class LocationNew extends \yii\db\ActiveRecord
             'latitude' => 'Latitude',
             'longitude' => 'Longitude',
             'is_reliable' => 'Is Reliable',
+            'occur_at' => 'Occur At',
             'created_at' => 'Created At',
         ];
     }

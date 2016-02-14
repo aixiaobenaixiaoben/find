@@ -18,6 +18,7 @@ class m160211_105227_create_location_new extends Migration
             'latitude' => Schema::TYPE_DECIMAL . '(13,10) NOT NULL',
             'longitude' => Schema::TYPE_DECIMAL . '(13,10) NOT NULL',
             'is_reliable' => Schema::TYPE_BOOLEAN . ' NOT NULL DEFAULT 1',
+            'occur_at' => Schema::TYPE_TIMESTAMP . ' NULL DEFAULT NULL',
             'created_at' => Schema::TYPE_TIMESTAMP . ' NOT NULL DEFAULT CURRENT_TIMESTAMP',
         ], Common::getTableOptions($this->db));
 
