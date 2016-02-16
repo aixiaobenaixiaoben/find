@@ -21,7 +21,7 @@ class m160211_115947_create_location_current extends Migration
         ], Common::getTableOptions($this->db));
 
         $this->addForeignKey('location_current_user_id', 'location_current', 'user_id', 'user', 'id');
-        $this->addForeignKey('location_current_event_id', 'location_current', 'event_id', 'event', 'id');
+        $this->addForeignKey('location_current_event_id', 'location_current', 'event_id', 'event', 'id','CASCADE');
     }
 
     public function safeDown()

@@ -44,7 +44,8 @@ abstract class LocationNew extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'event_id', 'provider_id', 'title_from_provider', 'title_from_API', 'latitude', 'longitude'], 'required'],
-            [['user_id', 'event_id', 'provider_id', 'is_reliable'], 'integer'],
+            [['user_id', 'event_id', 'provider_id'], 'integer'],
+            ['is_reliable', 'boolean'],
             [['latitude', 'longitude'], 'number'],
             [['created_at', 'occur_at'], 'safe'],
             [['title_from_provider', 'title_from_API'], 'string', 'max' => 255],

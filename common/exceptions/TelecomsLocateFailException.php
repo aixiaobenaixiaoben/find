@@ -5,7 +5,7 @@
  * Date: 16/2/14
  * Time: 23:37
  */
-namespace commom\exceptions;
+namespace common\exceptions;
 
 use yii\base\Exception;
 

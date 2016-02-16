@@ -9,7 +9,7 @@ return [
         'map' => [
             'class' => 'common\components\Map',
         ],
-        'Telecoms' => [
+        'telecoms' => [
             'class' => 'common\components\Telecoms',
         ],
     ],

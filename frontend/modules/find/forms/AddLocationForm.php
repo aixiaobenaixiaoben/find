@@ -7,11 +7,9 @@
  */
 namespace frontend\modules\find\forms;
 
-use Carbon\Carbon;
-use commom\exceptions\TelecomsLocateFailException;
+use common\exceptions\TelecomsLocateFailException;
 use common\exceptions\MapWithTitleException;
 use common\models\event\Event;
-use common\models\location\LocationCurrent;
 use common\models\location\LocationNew;
 use common\models\location\LocationProvider;
 use Yii;
@@ -23,11 +21,13 @@ class AddLocationForm extends Model
     public $event_id;
     public $identity_kind;
     public $title_from_provider;
-    public $provided_at;
     public $occur_at;
+    public $provided_at;
 
     public $identity_info;
 
+    /** @var  Event */
+    private $_event;
     /** @var  LocationProvider */
     private $_provider;
     /** @var  LocationNew */
@@ -62,6 +62,7 @@ class AddLocationForm extends Model
             $this->addError('title', 'No event found with id : ' . $this->event_id);
             return false;
         }
+        $this->_event = $event;
 
         $transaction = Yii::$app->db->beginTransaction();
         try {
@@ -70,7 +71,11 @@ class AddLocationForm extends Model
             $transaction->commit();
             return true;
         } catch (\yii\base\Exception $e) {
-            $this->addError('title', $e->getMessage());
+            if ($e instanceof \yii\db\Exception) {
+                $this->addError('title', $e->errorInfo);
+            } else {
+                $this->addError('title', $e->getMessage());
+            }
             $transaction->rollBack();
             return false;
         }
@@ -103,12 +108,11 @@ class AddLocationForm extends Model
 
         $provider->identity_kind = $this->identity_kind;
         $provider->provided_at = $this->provided_at;
-        $provider->created_at = Carbon::now();
 
         if ($provider->save()) {
             $this->_provider = $provider;
             return true;
-        } else throw new Exception($provider->errors);
+        } else throw new Exception('fail to create provider', $provider->errors);
     }
 
     public function createLocationNew()
@@ -117,12 +121,11 @@ class AddLocationForm extends Model
 
         $location_new->attributes = [
 //            'user_id' => Yii::$app->user->id,
-            'user_id' => 3,
+            'user_id' => 1,
             'event_id' => $this->event_id,
             'provider_id' => $this->_provider->id,
             'title_from_provider' => $this->title_from_provider,
             'occur_at' => $this->occur_at,
-            'created_at' => Carbon::now(),
         ];
         $details = Yii::$app->map->searchWithTitle($this->title_from_provider);
         if (!$details) {
@@ -132,19 +135,30 @@ class AddLocationForm extends Model
         $location_new->latitude = $details['latitude'];
         $location_new->longitude = $details['longitude'];
 
-        if (!$this->isNewLocationReliable($location_new)) $location_new->is_reliable = false;
+        if ($this->identity_kind == LocationProvider::IDENTITY_KIND_PEOPLE) {
+            $location_new->is_reliable = $this->isNewLocationReliable($location_new);
+        }
 
         if ($location_new->save()) {
             $this->_location_new = $location_new;
             return true;
         } else {
-            throw new Exception($location_new->errors);
+            throw new Exception('fail to create location new', $location_new->errors);
         }
     }
 
     public function isNewLocationReliable($location_new)
     {
+        //空间可信度判断
 
+
+        //时间可信度判断
+        return $this->_event->occur_at <= $this->occur_at && $this->occur_at <= $this->provided_at;
+    }
+
+    public function getEvent()
+    {
+        return $this->_event;
     }
 
     public function getProvider()

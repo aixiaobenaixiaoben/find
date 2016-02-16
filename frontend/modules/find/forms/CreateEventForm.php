@@ -7,10 +7,8 @@
  */
 namespace frontend\modules\find\forms;
 
-use Carbon\Carbon;
 use common\exceptions\MapWithTitleException;
 use common\models\event\Event;
-use common\models\location\LocationCurrent;
 use common\models\location\LocationNew;
 use common\models\location\LocationProvider;
 use Yii;
@@ -31,8 +29,6 @@ class CreateEventForm extends Model
     private $_provider;
     /** @var  LocationNew */
     private $_location_new;
-    /** @var  LocationCurrent */
-    private $_location_current;
 
     public function rules()
     {
@@ -57,11 +53,14 @@ class CreateEventForm extends Model
             $this->createEvent();
             $this->createProvider();
             $this->createLocationNew();
-            $this->createCurrent();
             $transaction->commit();
             return true;
         } catch (\yii\base\Exception $e) {
-            $this->addError('title', $e->getMessage());
+            if ($e instanceof \yii\db\Exception) {
+                $this->addError('title', $e->errorInfo);
+            } else {
+                $this->addError('title', $e->getMessage());
+            }
             $transaction->rollBack();
             return false;
         }
@@ -72,19 +71,18 @@ class CreateEventForm extends Model
         $event = new Event();
         $event->attributes = [
 //            'user_id' => Yii::$app->user->id,
-            'user_id' => 3,
+            'user_id' => 1,
             'theme' => $this->theme,
             'description' => $this->description,
             'urgent' => $this->urgent,
             'occur_at' => $this->occur_at,
-            'created_at' => Carbon::now()
         ];
 
         if ($event->save()) {
             $this->_event = $event;
             return true;
         } else {
-            throw new Exception($event->errors);
+            throw new Exception('fail to create Event', $event->errors);
         }
     }
 
@@ -95,7 +93,7 @@ class CreateEventForm extends Model
         if ($provider->save()) {
             $this->_provider = $provider;
             return true;
-        } else throw new Exception($provider->errors);
+        } else throw new Exception('fail to create provider', $provider->errors);
     }
 
     public function createLocationNew()
@@ -104,11 +102,11 @@ class CreateEventForm extends Model
 
         $location_new->attributes = [
 //            'user_id' => Yii::$app->user->id,
-            'user_id' => 3,
+            'user_id' => 1,
             'event_id' => $this->_event->id,
             'provider_id' => $this->_provider->id,
             'title_from_provider' => $this->title_from_provider,
-            'created_at' => Carbon::now(),
+            'occur_at' => $this->occur_at,
         ];
         $details = Yii::$app->map->searchWithTitle($this->title_from_provider);
         if (!$details) {
@@ -122,32 +120,9 @@ class CreateEventForm extends Model
             $this->_location_new = $location_new;
             return true;
         } else {
-            throw new Exception($location_new->errors);
+            throw new Exception('fail to create location new', $location_new->errors);
         }
     }
-
-    public function createCurrent()
-    {
-        $current = new LocationCurrent();
-        $current->attributes = [
-//            'user_id'=>Yii::$app->user->id,
-            'user_id' => 3,
-            'event_id' => $this->_event->id,
-            'is_origin' => 1,
-            'title' => $this->_location_new->title_from_API,
-            'longitude' => $this->_location_new->longitude,
-            'latitude' => $this->_location_new->latitude,
-            'occur_at' => $this->occur_at,
-            'created_at' => Carbon::now(),
-        ];
-        if ($current->save()) {
-            $this->_location_current = $current;
-            return true;
-        } else {
-            throw new Exception($current->errors);
-        }
-    }
-
 
     public function getEvent()
     {
@@ -162,11 +137,6 @@ class CreateEventForm extends Model
     public function getLocationNew()
     {
         return $this->_location_new;
-    }
-
-    public function getLocationCurrent()
-    {
-        return $this->_location_current;
     }
 
 }

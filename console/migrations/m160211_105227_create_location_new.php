@@ -25,7 +25,7 @@ class m160211_105227_create_location_new extends Migration
         $this->createIndex('location_new_event_provider_latitude_longitude', 'location_new', ['event_id', 'provider_id', 'latitude', 'longitude'], true);
 
         $this->addForeignKey('location_new_user_id', 'location_new', 'user_id', 'user', 'id');
-        $this->addForeignKey('location_new_event_id', 'location_new', 'event_id', 'event', 'id');
+        $this->addForeignKey('location_new_event_id', 'location_new', 'event_id', 'event', 'id','CASCADE');
         $this->addForeignKey('location_new_provider_id', 'location_new', 'provider_id', 'location_provider', 'id');
     }
 

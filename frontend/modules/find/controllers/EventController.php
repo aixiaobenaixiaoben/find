@@ -37,13 +37,17 @@ class EventController extends \yii\web\Controller
                 'event' => $event->getEvent(),
                 'provider' => $event->getProvider(),
                 'location_new' => $event->getLocationNew(),
-                'location_current' => $event->getLocationCurrent()
             ]);
         }
         AjaxResponse::fail(null, $event->errors);
     }
 
     public function actionChangeEventUrgentLevel()
+    {
+
+    }
+
+    public function actionFinishEvent()
     {
 
     }
