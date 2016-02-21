@@ -26,12 +26,17 @@ class AddLocationForm extends Model
 
     public $identity_info;
 
-    /** @var  Event */
     private $_event;
-    /** @var  LocationProvider */
     private $_provider;
-    /** @var  LocationNew */
     private $_location_new;
+
+    public function init()
+    {
+        parent::init();
+        $this->on(Model::EVENT_BEFORE_VALIDATE, function () {
+            $this->requireEventNotFinish();
+        });
+    }
 
     public function rules()
     {
@@ -53,16 +58,19 @@ class AddLocationForm extends Model
         ];
     }
 
+    public function requireEventNotFinish()
+    {
+        if (!$this->hasErrors()) {
+            $event = $this->getEvent();
+            if (!$event || $event->is_finished) {
+                $this->addError('event_id', 'This event has finished');
+            }
+        }
+    }
+
     public function save()
     {
         if (!$this->validate()) return false;
-
-        $event = Event::findOne($this->event_id);
-        if ($event == null) {
-            $this->addError('title', 'No event found with id : ' . $this->event_id);
-            return false;
-        }
-        $this->_event = $event;
 
         $transaction = Yii::$app->db->beginTransaction();
         try {
@@ -72,7 +80,6 @@ class AddLocationForm extends Model
             return true;
         } catch (\yii\base\Exception $e) {
             $transaction->rollBack();
-
             if ($e instanceof \yii\db\Exception) {
                 $this->addError('title', 'fail to create record in database');
             } else {
@@ -121,7 +128,7 @@ class AddLocationForm extends Model
         $location_new->attributes = [
             'user_id' => Yii::$app->user->id,
             'event_id' => $this->event_id,
-            'provider_id' => $this->_provider->id,
+            'provider_id' => $this->getProvider()->id,
             'title_from_provider' => $this->title_from_provider,
             'occur_at' => $this->occur_at,
         ];
@@ -134,20 +141,47 @@ class AddLocationForm extends Model
         $location_new->longitude = $details['longitude'];
 
         if ($this->identity_kind == LocationProvider::IDENTITY_KIND_PEOPLE) {
-            $location_new->is_reliable = $this->isNewLocationReliable($location_new);
+            $location_new->is_reliable = $this->isNewLocationReliable();
         }
 
         $location_new->save();
         $this->_location_new = $location_new;
     }
 
-    public function isNewLocationReliable($location_new)
+    public function isNewLocationReliable()
     {
         //空间可信度判断
 
 
         //时间可信度判断
-        return $this->_event->occur_at <= $this->occur_at && $this->occur_at <= $this->provided_at;
+        return $this->getEvent()->occur_at <= $this->occur_at && $this->occur_at <= $this->provided_at;
+    }
+
+    /**
+     * @return Event|null
+     */
+    protected function getEvent()
+    {
+        if ($this->_event === null) {
+            $this->_event = Event::findOne($this->event_id);
+        }
+        return $this->_event;
+    }
+
+    /**
+     * @return LocationProvider
+     */
+    protected function getProvider()
+    {
+        return $this->_provider;
+    }
+
+    /**
+     * @return LocationNew
+     */
+    protected function getLocationNew()
+    {
+        return $this->_location_new;
     }
 
 

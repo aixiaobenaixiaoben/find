@@ -3,6 +3,7 @@
 namespace frontend\modules\find\controllers;
 
 use common\models\AjaxResponse;
+use common\models\location\LocationNew;
 use frontend\modules\find\forms\AddLocationForm;
 use Yii;
 
@@ -14,18 +15,21 @@ class LocationController extends \yii\web\Controller
         return parent::beforeAction($action);
     }
 
-    public function actionLocation()
+    public function actionLocation($id)
     {
-        return $this->render('location');
+        $location = LocationNew::findOne($id);
+        if ($location) {
+            AjaxResponse::success(['location' => $location]);
+        }
+        AjaxResponse::fail();
     }
 
-    public function actionPreAddLocation()
-    {
-
-    }
 
     public function actionAddLocation()
     {
+        if (Yii::$app->request->isGet) {
+            return $this->render('add-location');
+        }
         $location = new AddLocationForm();
         if ($location->load(Yii::$app->request->post(), '') && $location->save()) {
             AjaxResponse::success();
@@ -33,9 +37,5 @@ class LocationController extends \yii\web\Controller
         AjaxResponse::fail(null, $location->errors);
     }
 
-    public function actionUnReliableLocation()
-    {
-
-    }
 
 }

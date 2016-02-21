@@ -54,7 +54,7 @@ return [
             ],
         ],
         'view' => [
-//            'title' => 'Dream Stamp',
+            'title' => 'Find',
             'defaultExtension' => 'tpl',
             'renderers' => [
                 'tpl' => [

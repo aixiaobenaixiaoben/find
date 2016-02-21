@@ -23,11 +23,8 @@ class CreateEventForm extends Model
     public $occur_at;
     public $title_from_provider;
 
-    /** @var  Event */
     private $_event;
-    /** @var  LocationProvider */
     private $_provider;
-    /** @var  LocationNew */
     private $_location_new;
 
     public function rules()
@@ -96,8 +93,8 @@ class CreateEventForm extends Model
 
         $location_new->attributes = [
             'user_id' => Yii::$app->user->id,
-            'event_id' => $this->_event->id,
-            'provider_id' => $this->_provider->id,
+            'event_id' => $this->getEvent()->id,
+            'provider_id' => $this->getProvider()->id,
             'title_from_provider' => $this->title_from_provider,
             'occur_at' => $this->occur_at,
         ];
@@ -111,6 +108,30 @@ class CreateEventForm extends Model
 
         $location_new->save();
         $this->_location_new = $location_new;
+    }
+
+    /**
+     * @return Event
+     */
+    public function getEvent()
+    {
+        return $this->_event;
+    }
+
+    /**
+     * @return LocationProvider
+     */
+    public function getProvider()
+    {
+        return $this->_provider;
+    }
+
+    /**
+     * @return LocationNew
+     */
+    public function getLocationNew()
+    {
+        return $this->_location_new;
     }
 
 }

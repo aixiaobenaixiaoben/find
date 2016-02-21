@@ -31,4 +31,12 @@ class Admin extends BaseAdmin
             ]
         ];
     }
+
+    /**
+     * @return null|Admin
+     */
+    public static function getCurrent()
+    {
+        return Admin::findOne(['user_id' => Yii::$app->user->id]);
+    }
 }

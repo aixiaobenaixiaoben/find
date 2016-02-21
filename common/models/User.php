@@ -42,7 +42,7 @@ class User extends baseUser implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return static::findOne(['id' => $id, 'id_blocked' => false]);
+        return static::findOne(['id' => $id, 'is_blocked' => false]);
     }
 
     /**
@@ -61,7 +61,7 @@ class User extends baseUser implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-        return static::findOne(['username' => $username, 'id_blocked' => false]);
+        return static::findOne(['username' => $username, 'is_blocked' => false]);
     }
 
     /**
