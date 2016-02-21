@@ -21,7 +21,6 @@ abstract class Admin extends \yii\db\ActiveRecord
 {
 
 
-
     /**
      * @inheritdoc
      */
@@ -37,7 +36,8 @@ abstract class Admin extends \yii\db\ActiveRecord
     {
         return [
             [['user_id'], 'required'],
-            [['user_id', 'is_blocked'], 'integer'],
+            ['user_id', 'integer'],
+            ['is_blocked', 'boolean'],
             [['created_at', 'updated_at'], 'safe'],
             [['user_id'], 'unique']
         ];
@@ -64,8 +64,6 @@ abstract class Admin extends \yii\db\ActiveRecord
     {
         return $this->hasOne(\common\models\User::className(), ['id' => 'user_id']);
     }
-
-
 
 
 }

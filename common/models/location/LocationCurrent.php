@@ -34,12 +34,13 @@ class LocationCurrent extends BaseLocationCurrent
 
     public static function createCurrent($event)
     {
-        /** @var  LocationNew */
+        /** @var LocationNew $location_new */
         $location_new = $event->sender;
+
+        if ($location_new->provider->identity_kind == LocationProvider::IDENTITY_KIND_PEOPLE && !$location_new->is_reliable) return false;
         $current = new self();
         $current->attributes = [
-//            'user_id'=>Yii::$app->user->id,
-            'user_id' => 1,
+            'user_id' => Yii::$app->user->id,
             'event_id' => $location_new->event_id,
             'title' => $location_new->title_from_API,
             'longitude' => $location_new->longitude,
@@ -50,9 +51,6 @@ class LocationCurrent extends BaseLocationCurrent
         $exist_currents = $location_new->event->locationCurrents;
         if ($exist_currents == null) $current->is_origin = 1;
 
-        if (!$current->save()) {
-            throw new Exception('fail to create location current', $current->errors);
-        }
-        return true;
+        return $current->save();
     }
 }

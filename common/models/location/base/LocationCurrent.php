@@ -26,7 +26,6 @@ abstract class LocationCurrent extends \yii\db\ActiveRecord
 {
 
 
-
     /**
      * @inheritdoc
      */
@@ -42,7 +41,8 @@ abstract class LocationCurrent extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'event_id', 'title', 'latitude', 'longitude'], 'required'],
-            [['user_id', 'event_id', 'is_origin'], 'integer'],
+            [['user_id', 'event_id'], 'integer'],
+            ['is_origin', 'boolean'],
             [['latitude', 'longitude'], 'number'],
             [['occur_at', 'created_at'], 'safe'],
             [['title'], 'string', 'max' => 255]
@@ -82,8 +82,6 @@ abstract class LocationCurrent extends \yii\db\ActiveRecord
     {
         return $this->hasOne(\common\models\User::className(), ['id' => 'user_id']);
     }
-
-
 
 
 }

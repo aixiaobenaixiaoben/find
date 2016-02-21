@@ -56,12 +56,13 @@ class CreateEventForm extends Model
             $transaction->commit();
             return true;
         } catch (\yii\base\Exception $e) {
+            $transaction->rollBack();
+
             if ($e instanceof \yii\db\Exception) {
-                $this->addError('title', $e->errorInfo);
+                $this->addError('title', 'fail to create record in database');
             } else {
                 $this->addError('title', $e->getMessage());
             }
-            $transaction->rollBack();
             return false;
         }
     }
@@ -70,30 +71,23 @@ class CreateEventForm extends Model
     {
         $event = new Event();
         $event->attributes = [
-//            'user_id' => Yii::$app->user->id,
-            'user_id' => 1,
+            'user_id' => Yii::$app->user->id,
             'theme' => $this->theme,
             'description' => $this->description,
             'urgent' => $this->urgent,
             'occur_at' => $this->occur_at,
         ];
 
-        if ($event->save()) {
-            $this->_event = $event;
-            return true;
-        } else {
-            throw new Exception('fail to create Event', $event->errors);
-        }
+        $event->save();
+        $this->_event = $event;
     }
 
     public function createProvider()
     {
         $provider = new LocationProvider();
         $provider->identity_info = LocationProvider::IDENTITY_KIND_POLICE . time();
-        if ($provider->save()) {
-            $this->_provider = $provider;
-            return true;
-        } else throw new Exception('fail to create provider', $provider->errors);
+        $provider->save();
+        $this->_provider = $provider;
     }
 
     public function createLocationNew()
@@ -101,8 +95,7 @@ class CreateEventForm extends Model
         $location_new = new LocationNew();
 
         $location_new->attributes = [
-//            'user_id' => Yii::$app->user->id,
-            'user_id' => 1,
+            'user_id' => Yii::$app->user->id,
             'event_id' => $this->_event->id,
             'provider_id' => $this->_provider->id,
             'title_from_provider' => $this->title_from_provider,
@@ -116,27 +109,8 @@ class CreateEventForm extends Model
         $location_new->latitude = $details['latitude'];
         $location_new->longitude = $details['longitude'];
 
-        if ($location_new->save()) {
-            $this->_location_new = $location_new;
-            return true;
-        } else {
-            throw new Exception('fail to create location new', $location_new->errors);
-        }
-    }
-
-    public function getEvent()
-    {
-        return $this->_event;
-    }
-
-    public function getProvider()
-    {
-        return $this->_provider;
-    }
-
-    public function getLocationNew()
-    {
-        return $this->_location_new;
+        $location_new->save();
+        $this->_location_new = $location_new;
     }
 
 }

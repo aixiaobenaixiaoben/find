@@ -71,12 +71,13 @@ class AddLocationForm extends Model
             $transaction->commit();
             return true;
         } catch (\yii\base\Exception $e) {
+            $transaction->rollBack();
+
             if ($e instanceof \yii\db\Exception) {
-                $this->addError('title', $e->errorInfo);
+                $this->addError('title', 'fail to create record in database');
             } else {
                 $this->addError('title', $e->getMessage());
             }
-            $transaction->rollBack();
             return false;
         }
     }
@@ -109,10 +110,8 @@ class AddLocationForm extends Model
         $provider->identity_kind = $this->identity_kind;
         $provider->provided_at = $this->provided_at;
 
-        if ($provider->save()) {
-            $this->_provider = $provider;
-            return true;
-        } else throw new Exception('fail to create provider', $provider->errors);
+        $provider->save();
+        $this->_provider = $provider;
     }
 
     public function createLocationNew()
@@ -120,8 +119,7 @@ class AddLocationForm extends Model
         $location_new = new LocationNew();
 
         $location_new->attributes = [
-//            'user_id' => Yii::$app->user->id,
-            'user_id' => 1,
+            'user_id' => Yii::$app->user->id,
             'event_id' => $this->event_id,
             'provider_id' => $this->_provider->id,
             'title_from_provider' => $this->title_from_provider,
@@ -139,12 +137,8 @@ class AddLocationForm extends Model
             $location_new->is_reliable = $this->isNewLocationReliable($location_new);
         }
 
-        if ($location_new->save()) {
-            $this->_location_new = $location_new;
-            return true;
-        } else {
-            throw new Exception('fail to create location new', $location_new->errors);
-        }
+        $location_new->save();
+        $this->_location_new = $location_new;
     }
 
     public function isNewLocationReliable($location_new)
@@ -156,19 +150,5 @@ class AddLocationForm extends Model
         return $this->_event->occur_at <= $this->occur_at && $this->occur_at <= $this->provided_at;
     }
 
-    public function getEvent()
-    {
-        return $this->_event;
-    }
-
-    public function getProvider()
-    {
-        return $this->_provider;
-    }
-
-    public function getLocationNew()
-    {
-        return $this->_location_new;
-    }
 
 }

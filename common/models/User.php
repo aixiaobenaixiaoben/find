@@ -7,36 +7,15 @@ use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+use \common\models\user\base\User as baseUser;
 
-/**
- * User model
- *
- * @property integer $id
- * @property string $username
- * @property string $password_hash
- * @property string $password_reset_token
- * @property string $email
- * @property string $auth_key
- * @property integer $status
- * @property string $dynamic_key
- * @property boolean $is_block
- * @property boolean $is_activated
- * @property integer $created_at
- * @property integer $updated_at
- * @property string $password write-only password
- */
-class User extends ActiveRecord implements IdentityInterface
+
+class User extends baseUser implements IdentityInterface
 {
-    const STATUS_DELETED = 0;
-    const STATUS_ACTIVE = 10;
 
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return '{{%user}}';
-    }
+    const DYNAMIC_KEY_LENGTH = 8;
+    const DYNAMIC_KEY_LOGIN_LIFE = 10;//minutes
+    const DYNAMIC_KEY_ACTIVATE_LIFE = 24 * 60;//minutes
 
     /**
      * @inheritdoc
@@ -57,23 +36,13 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
-        ];
-    }
 
     /**
      * @inheritdoc
      */
     public static function findIdentity($id)
     {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['id' => $id, 'id_blocked' => false]);
     }
 
     /**
@@ -92,42 +61,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
-    }
-
-    /**
-     * Finds user by password reset token
-     *
-     * @param string $token password reset token
-     * @return static|null
-     */
-    public static function findByPasswordResetToken($token)
-    {
-        if (!static::isPasswordResetTokenValid($token)) {
-            return null;
-        }
-
-        return static::findOne([
-            'password_reset_token' => $token,
-            'status' => self::STATUS_ACTIVE,
-        ]);
-    }
-
-    /**
-     * Finds out if password reset token is valid
-     *
-     * @param string $token password reset token
-     * @return boolean
-     */
-    public static function isPasswordResetTokenValid($token)
-    {
-        if (empty($token)) {
-            return false;
-        }
-        $expire = Yii::$app->params['user.passwordResetTokenExpire'];
-        $parts = explode('_', $token);
-        $timestamp = (int)end($parts);
-        return $timestamp + $expire >= time();
+        return static::findOne(['username' => $username, 'id_blocked' => false]);
     }
 
     /**
@@ -184,18 +118,47 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Generates new password reset token
+     * @param int $length
+     * @return string
      */
-    public function generatePasswordResetToken()
+    public static function generateDynamicKey($length = self::DYNAMIC_KEY_LENGTH)
     {
-        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+        return strtolower(Yii::$app->security->generateRandomString($length));
     }
 
     /**
-     * Removes password reset token
+     * @param $key
+     * @return bool
      */
-    public function removePasswordResetToken()
+    public function validateDynamicKey($key)
     {
-        $this->password_reset_token = null;
+        return $this->dynamic_key && $this->dynamic_key == $key && Carbon::now()->lte(Carbon::createFromFormat('Y-m-d H:i:s', $this->dynamic_key_expired_at));
+    }
+
+    /**
+     * @param $key
+     * @param $life
+     */
+    public function setDynamicKey($key, $life)
+    {
+        $this->dynamic_key = $key;
+        $this->dynamic_key_expired_at = Carbon::now()->addMinutes($life);
+    }
+
+    /**
+     *
+     */
+    public function removeDynamicKey()
+    {
+        $this->dynamic_key = null;
+        $this->dynamic_key_expired_at = null;
+    }
+
+    /**
+     * @return null|User
+     */
+    public static function getCurrent()
+    {
+        return User::findOne(Yii::$app->user->id);
     }
 }

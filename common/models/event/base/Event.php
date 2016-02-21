@@ -50,7 +50,8 @@ abstract class Event extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'theme'], 'required'],
-            [['user_id', 'is_finished'], 'integer'],
+            ['user_id', 'integer'],
+            ['is_finished', 'boolean'],
             [['description', 'urgent'], 'string'],
             [['occur_at', 'created_at', 'updated_at'], 'safe'],
             [['theme'], 'string', 'max' => 255],

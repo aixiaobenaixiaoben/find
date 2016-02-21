@@ -28,11 +28,7 @@ class LocationController extends \yii\web\Controller
     {
         $location = new AddLocationForm();
         if ($location->load(Yii::$app->request->post(), '') && $location->save()) {
-            AjaxResponse::success([
-                'event' => $location->getEvent(),
-                'provider' => $location->getProvider(),
-                'location_new' => $location->getLocationNew(),
-            ]);
+            AjaxResponse::success();
         }
         AjaxResponse::fail(null, $location->errors);
     }

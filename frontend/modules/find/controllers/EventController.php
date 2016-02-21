@@ -33,11 +33,7 @@ class EventController extends \yii\web\Controller
     {
         $event = new CreateEventForm();
         if ($event->load(Yii::$app->request->post(), '') && $event->save()) {
-            AjaxResponse::success([
-                'event' => $event->getEvent(),
-                'provider' => $event->getProvider(),
-                'location_new' => $event->getLocationNew(),
-            ]);
+            AjaxResponse::success();
         }
         AjaxResponse::fail(null, $event->errors);
     }
