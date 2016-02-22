@@ -10,6 +10,7 @@ class ResetPasswordForm extends Model
 {
     public $username;
     public $password;
+    public $password_confirm;
     public $email;
     public $dynamic_key;
 
@@ -18,6 +19,11 @@ class ResetPasswordForm extends Model
     public function init()
     {
         parent::init();
+        $this->on(Model::EVENT_BEFORE_VALIDATE, function () {
+            if ($this->password != $this->password_confirm) {
+                $this->addError('password', 'password is not equal to password_confirm');
+            }
+        });
         $this->on(Model::EVENT_AFTER_VALIDATE, function () {
             $this->requireUnblock();
             $this->requireActivated();
@@ -30,7 +36,7 @@ class ResetPasswordForm extends Model
     public function rules()
     {
         return [
-            [['username', 'password', 'email', 'dynamic_key'], 'required'],
+            [['username', 'password', 'password_confirm', 'email', 'dynamic_key'], 'required'],
             ['username', 'string'],
             ['email', 'email'],
             ['email', 'exist',
@@ -38,7 +44,7 @@ class ResetPasswordForm extends Model
                 'message' => 'There is no user with such email.'
             ],
             ['dynamic_key', 'string', 'length' => 8],
-            ['password', 'string'],
+            [['password', 'password_confirm'], 'string'],
             ['dynamic_key', 'validateDynamicKey']
         ];
     }

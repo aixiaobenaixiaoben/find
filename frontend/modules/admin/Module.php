@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\admin;
+namespace frontend\modules\admin;
 
 use common\models\admin\Admin;
 use common\models\User;
@@ -13,14 +13,14 @@ class Module extends \yii\base\Module
     public function init()
     {
         parent::init();
-        $this->layout = 'site';
+        $this->layout = '@frontend/views/layouts/site.php';
     }
 
     public function beforeAction($action)
     {
-        if (!User::getCurrent() || !Admin::getCurrent()) {
+        /*if (!User::getCurrent() || !Admin::getCurrent()) {
             throw new HttpException(403, 'You are not an admin');
-        }
+        }*/
         return parent::beforeAction($action);
     }
 }

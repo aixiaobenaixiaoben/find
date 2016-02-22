@@ -1,0 +1,62 @@
+.view {
+    padding: 50px 10px 100px 0;
+    background: url("line.png") right top repeat-y;
+}
+
+
+.view .item {
+    background: url("line.png") left bottom repeat-x;
+}
+
+.view .item .title h4 {
+    line-height: 50px;
+    font-weight: bold;
+}
+
+.view .item .about {
+    height: 40px;
+    position: relative;
+}
+
+.view .item .about i {
+    position: absolute;
+    line-height: 40px;
+    color: #34AB96;
+}
+
+.view .item .about a {
+    position: absolute;
+    line-height: 40px;
+    color: #34AB96;
+}
+
+.view .item .about .calendar {
+    left: 0;
+}
+
+.view .item .about .date {
+    left: 25px;
+    cursor: auto;
+}
+
+.view .item .about .tag {
+    left: 210px;
+}
+
+.view .item .about .tag-name {
+    left: 235px;
+}
+
+.view .content {
+    padding: 20px 0 70px 0;
+}
+
+.view .content h5 {
+    line-height: 30px;
+    color: #A9ACAD;
+}
+
+.view .content h4 {
+    line-height: 50px;
+}
+

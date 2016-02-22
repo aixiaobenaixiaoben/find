@@ -18,8 +18,8 @@ class UserSearch extends User
 public function rules()
 {
 return [
-[['id', 'status', 'is_block', 'is_activated'], 'integer'],
-            [['username', 'email', 'auth_key', 'password_hash', 'password_reset_token', 'dynamic_key', 'created_at', 'updated_at'], 'safe'],
+[['id', 'is_blocked', 'is_activated'], 'integer'],
+            [['username', 'email', 'auth_key', 'password_hash', 'dynamic_key', 'dynamic_key_expired_at', 'created_at', 'updated_at'], 'safe'],
 ];
 }
 
@@ -57,8 +57,8 @@ return $dataProvider;
 
 $query->andFilterWhere([
             'id' => $this->id,
-            'status' => $this->status,
-            'is_block' => $this->is_block,
+            'dynamic_key_expired_at' => $this->dynamic_key_expired_at,
+            'is_blocked' => $this->is_blocked,
             'is_activated' => $this->is_activated,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
@@ -68,7 +68,6 @@ $query->andFilterWhere([
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'auth_key', $this->auth_key])
             ->andFilterWhere(['like', 'password_hash', $this->password_hash])
-            ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
             ->andFilterWhere(['like', 'dynamic_key', $this->dynamic_key]);
 
 return $dataProvider;

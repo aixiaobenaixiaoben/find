@@ -13,7 +13,7 @@ use common\models\User;
 use Yii;
 use yii\base\Model;
 
-class sendDynamicKeyForm extends Model
+class SendDynamicKeyForm extends Model
 {
     public $username;
     public $password = null;
@@ -94,8 +94,8 @@ class sendDynamicKeyForm extends Model
 
             if ($this->password) {
                 $title = 'Dynamic Key to Login find.forfreedomandlove.com';
-                $content = "<br><br>" . $key;
-                $content .= "<br>" . 'the dynamic key will expired after ' . User::DYNAMIC_KEY_LOGIN_LIFE . ' minutes';
+                $content = "<br><br>Dynamic Key:  " . $key;
+                $content .= "<br><br>" . 'the dynamic key will expired after ' . User::DYNAMIC_KEY_LOGIN_LIFE . ' minutes';
                 $content .= "<br>" . 'If this dynamic key is not sent by you ,your password has disclosed,and you should change your password as soon as possible ' . "<br><br><br><br><br>";
 
             } else {

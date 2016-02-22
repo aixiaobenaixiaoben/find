@@ -47,7 +47,19 @@ $this->params['breadcrumbs'][] = $this->title;
                             'class' => 'dropdown-menu-right'
                         ],
                         'encodeLabels' => false,
-                        'items' => []
+                        'items' => [[
+                            'url' => ['admin/index'],
+                            'label' => '<i class="glyphicon glyphicon-arrow-right">&nbsp;' . 'Admin' . '</i>',
+                        ], [
+                            'url' => ['event/index'],
+                            'label' => '<i class="glyphicon glyphicon-arrow-right">&nbsp;' . 'Event' . '</i>',
+                        ], [
+                            'url' => ['location-current/index'],
+                            'label' => '<i class="glyphicon glyphicon-arrow-right">&nbsp;' . 'Location Current' . '</i>',
+                        ], [
+                            'url' => ['location-new/index'],
+                            'label' => '<i class="glyphicon glyphicon-arrow-right">&nbsp;' . 'Location New' . '</i>',
+                        ],]
                     ],
                     'options' => [
                         'class' => 'btn-default'
@@ -81,14 +93,17 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'contentOptions' => ['nowrap' => 'nowrap']
                 ],
+                'id',
                 'username',
                 'email',
-                'status',
-                'dynamic_key',
-                'is_block',
+//			'auth_key',
+//			'password_hash',
+                'is_blocked',
                 'is_activated',
+                'dynamic_key_expired_at',
                 'created_at',
                 'updated_at',
+                /*'dynamic_key'*/
             ],
         ]); ?>
     </div>

@@ -17,8 +17,6 @@ class SignupForm extends Model
     public $email;
     public $password;
 
-    private $_admin;
-
     public function init()
     {
         parent::init();
@@ -52,7 +50,7 @@ class SignupForm extends Model
     public function requireAdmin()
     {
         if (!$this->hasErrors()) {
-            $admin = $this->getAdmin();
+            $admin = Admin::getCurrent();
             if (!$admin || $admin->is_blocked) {
                 $this->addError('username', 'This account is not an admin or has been blocked as admin.');
             }
@@ -104,17 +102,4 @@ class SignupForm extends Model
         return false;
     }
 
-    /**
-     * Finds Admin by [[user_id]]
-     *
-     * @return Admin|null
-     */
-    protected function getAdmin()
-    {
-        if ($this->_admin === null) {
-            $this->_admin = Admin::findOne(['user_id' => Yii::$app->user->id]);
-        }
-
-        return $this->_admin;
-    }
 }

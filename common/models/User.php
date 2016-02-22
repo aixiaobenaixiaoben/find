@@ -15,7 +15,7 @@ class User extends baseUser implements IdentityInterface
 
     const DYNAMIC_KEY_LENGTH = 8;
     const DYNAMIC_KEY_LOGIN_LIFE = 10;//minutes
-    const DYNAMIC_KEY_ACTIVATE_LIFE = 24 * 60;//minutes
+    const DYNAMIC_KEY_ACTIVATE_LIFE = 1440;//minutes
 
     /**
      * @inheritdoc

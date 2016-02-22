@@ -10,7 +10,7 @@ return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'defaultRoute' => 'user/index',
+    'defaultRoute' => 'user/index/index',
 
     'modules' => [
         'admin' => [
@@ -41,15 +41,15 @@ return [
             ],
         ],
         'urlManager' => [
-            'enablePrettyUrl' => false,
+            'enablePrettyUrl' => true,
             'enableStrictParsing' => false,
             'showScriptName' => false,
 //            'suffix' => '.html',//设置URL后缀
             'rules' => [
-                '<id:\d+>' => 'index/view',
-                '<controller:[-\w]+>/<id:\d+>' => '<controller>/view',
-                '<controller:[-\w]+>/<action:[-\w]+>' => '<controller>/<action>',
-                '<controller:[-\w]+>/<action:[-\w]+>/<id:\d+>' => '<controller>/<action>',
+//                '<id:\d+>' => 'index/view',
+//                '<controller:[-\w]+>/<id:\d+>' => '<controller>/view',
+//                '<controller:[-\w]+>/<action:[-\w]+>' => '<controller>/<action>',
+//                '<controller:[-\w]+>/<action:[-\w]+>/<id:\d+>' => '<controller>/<action>',
                 '<module:[-\w]+>/<controller:[-\w]+>/<action:[-\w]+>' => '<module>/<controller>/<action>',
             ],
         ],
@@ -64,7 +64,7 @@ return [
             ],
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'user/index/error',
         ],
     ],
     'params' => $params,

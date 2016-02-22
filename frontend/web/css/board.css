@@ -1,0 +1,4 @@
+.board {
+    padding: 40px 10px 40px 0;
+    background: url("line.png") right top repeat-y;
+}

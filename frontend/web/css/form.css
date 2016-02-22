@@ -1,0 +1,43 @@
+.form {
+    padding: 50px 30px 100px 30px;
+    background: url("line.png") right top repeat-y;
+}
+
+.petty {
+    padding: 0 50px;
+}
+
+.form .contact input, textarea {
+    border-radius: 3px;
+    border: none;
+    background-color: #2E2938;
+    padding: 5px;
+    color: #FDFDFD;
+}
+
+.form .contact h5 {
+    line-height: 35px;
+}
+
+.form .contact .bottom-button {
+    height: 70px;
+}
+
+.form .contact .bottom-button .columns {
+    line-height: 70px;
+    text-align: center;
+}
+
+.form .contact .bottom-button button {
+    background-color: #564F89;
+    width: 240px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 3px;
+}
+
+.form .contact .bottom-button button h5 {
+    font-weight: bold;
+}
+
+

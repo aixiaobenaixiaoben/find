@@ -8,7 +8,7 @@ use frontend\modules\user\forms\ActivateAccountForm;
 use frontend\modules\user\forms\ContactForm;
 use frontend\modules\user\forms\LoginForm;
 use frontend\modules\user\forms\ResetPasswordForm;
-use frontend\modules\user\forms\sendDynamicKeyForm;
+use frontend\modules\user\forms\SendDynamicKeyForm;
 use frontend\modules\user\forms\SignupForm;
 use Yii;
 use yii\filters\AccessControl;
@@ -25,10 +25,10 @@ class IndexController extends \yii\web\Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
+                'only' => ['test', 'index', 'logout', 'signup'],
                 'rules' => [
                     [
-                        'actions' => ['login', 'send-dynamic-key', 'activate', 'reset-password'],
+                        'actions' => ['test', 'index', 'login', 'send-dynamic-key', 'activate', 'reset-password'],
                         'allow' => true,
                     ],
                     [
@@ -50,6 +50,18 @@ class IndexController extends \yii\web\Controller
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function actions()
+    {
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+        ];
+    }
+
     public function beforeAction($action)
     {
         $this->enableCsrfValidation = false;
@@ -64,11 +76,15 @@ class IndexController extends \yii\web\Controller
     public function actionLogin()
     {
         if (Yii::$app->request->isGet) {
-            $this->render('login');
+            return $this->render('login');
         }
 
         if (!\Yii::$app->user->isGuest) {
-            AjaxResponse::fail();
+            if (Yii::$app->request->isAjax) {
+                AjaxResponse::fail();
+            } else {
+                return $this->goHome();
+            }
         }
 
         $model = new LoginForm();
@@ -93,6 +109,15 @@ class IndexController extends \yii\web\Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
+//        return $this->redirect('/user/index/index');
+        return $this->redirect('https://find.forfreedomandlove.com/user/index/index');
+//        return $this->goHome();
+    }
+
+    public function actionTest()
+    {
+//        return $this->redirect('https://find.forfreedomandlove.com/user/index/index');
+//        return $this->redirect('/user/index/index');
         return $this->goHome();
     }
 
@@ -112,9 +137,11 @@ class IndexController extends \yii\web\Controller
     {
         $model = new ActivateAccountForm();
         if ($model->load(Yii::$app->request->get(), '') && $model->activate()) {
-            AjaxResponse::success();
+            $title = 'Congratulations! You have activated your account and you can login now';
+        } else {
+            $title = $model->errors;
         }
-        AjaxResponse::fail(null, $model->errors);
+        return $this->render('activate', ['title' => $title]);
     }
 
 

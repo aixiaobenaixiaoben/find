@@ -10,7 +10,7 @@
     <link href="/css/freedom.ico" rel="shortcut icon">
 
     {$this->registerCssFile('/vendor/foundation/css/foundation.min.css')}
-    {$this->registerCssFile('/vendor/semantic/packaged/css/semantic.min.css')}
+    {$this->registerCssFile('/vendor/semantic/semantic.min.css')}
     {$this->registerCssFile('/css/index.css')}
     {$this->registerCssFile('/css/board.css')}
     {$this->registerCssFile('/css/side.css')}

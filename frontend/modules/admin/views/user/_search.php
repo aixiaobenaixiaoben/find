@@ -27,13 +27,11 @@ use yii\widgets\ActiveForm;
 
 		<?= $form->field($model, 'password_hash') ?>
 
-		<?php // echo $form->field($model, 'password_reset_token') ?>
-
-		<?php // echo $form->field($model, 'status') ?>
-
 		<?php // echo $form->field($model, 'dynamic_key') ?>
 
-		<?php // echo $form->field($model, 'is_block') ?>
+		<?php // echo $form->field($model, 'dynamic_key_expired_at') ?>
+
+		<?php // echo $form->field($model, 'is_blocked') ?>
 
 		<?php // echo $form->field($model, 'is_activated') ?>
 
