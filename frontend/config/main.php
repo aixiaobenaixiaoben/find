@@ -11,6 +11,7 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'defaultRoute' => 'user/index/index',
+    'homeUrl' => 'https://find.forfreedomandlove.com/',
 
     'modules' => [
         'admin' => [
@@ -30,6 +31,7 @@ return [
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
+            'loginUrl'=>['user/index/login'],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -44,13 +46,15 @@ return [
             'enablePrettyUrl' => true,
             'enableStrictParsing' => false,
             'showScriptName' => false,
+            'baseUrl' => 'https://find.forfreedomandlove.com',
 //            'suffix' => '.html',//设置URL后缀
             'rules' => [
 //                '<id:\d+>' => 'index/view',
 //                '<controller:[-\w]+>/<id:\d+>' => '<controller>/view',
-//                '<controller:[-\w]+>/<action:[-\w]+>' => '<controller>/<action>',
+                '<controller:[-\w]+>/<action:[-\w]+>' => '<controller>/<action>',
 //                '<controller:[-\w]+>/<action:[-\w]+>/<id:\d+>' => '<controller>/<action>',
                 '<module:[-\w]+>/<controller:[-\w]+>/<action:[-\w]+>' => '<module>/<controller>/<action>',
+                '<module:[-\w]+>/<controller:[-\w]+>/<action:[-\w]+>/<user_id:\d+>/<key:[-\w]+>' => '<module>/<controller>/<action>',
             ],
         ],
         'view' => [

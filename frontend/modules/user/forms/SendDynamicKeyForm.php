@@ -21,10 +21,12 @@ class SendDynamicKeyForm extends Model
 
     private $_user;
 
+//reset   login  change-email
     public function init()
     {
         parent::init();
         $this->on(Model::EVENT_AFTER_VALIDATE, function () {
+            $this->requireActivated();
             if ($this->password && !$this->email) {
                 $this->validatePassword();
             } elseif (!$this->password && $this->email) {
@@ -49,6 +51,15 @@ class SendDynamicKeyForm extends Model
         ];
     }
 
+    public function requireActivated()
+    {
+        if (!$this->hasErrors()) {
+            $user = $this->getUser();
+            if (!$user || !$user->is_activated) {
+                $this->addError('username', 'This account have not been activated');
+            }
+        }
+    }
 
     public function validatePassword()
     {
@@ -84,7 +95,7 @@ class SendDynamicKeyForm extends Model
         $transaction = Yii::$app->db->beginTransaction();
         try {
             if ($user->dynamic_key && $user->validateDynamicKey($user->dynamic_key)) {
-                throw new HurryDynamicKeyException('Current Dynamic key has not expired');
+                throw new HurryDynamicKeyException('Current Dynamic key has not expired,please check you email');
             }
 
             $key = User::generateDynamicKey();

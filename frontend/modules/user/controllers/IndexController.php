@@ -25,14 +25,9 @@ class IndexController extends \yii\web\Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['test', 'index', 'logout', 'signup'],
+                'only' => ['logout', 'profile', 'sign-up', 'verify-old-email', 'change-email', 'change-password', 'contact'],
                 'rules' => [
                     [
-                        'actions' => ['test', 'index', 'login', 'send-dynamic-key', 'activate', 'reset-password'],
-                        'allow' => true,
-                    ],
-                    [
-                        'actions' => ['logout', 'sign-up', 'verify-old-email', 'change-email', 'change-password', 'contact'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -41,8 +36,9 @@ class IndexController extends \yii\web\Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['get'],
                     'send-dynamic-key' => ['post'],
+                    'logout' => ['get'],
+                    'profile' => ['get'],
                     'activate' => ['get'],
                     'verify-old-email' => ['post'],
                 ],
@@ -75,16 +71,16 @@ class IndexController extends \yii\web\Controller
 
     public function actionLogin()
     {
-        if (Yii::$app->request->isGet) {
-            return $this->render('login');
-        }
-
         if (!\Yii::$app->user->isGuest) {
             if (Yii::$app->request->isAjax) {
                 AjaxResponse::fail();
             } else {
-                return $this->goHome();
+                return $this->redirect('https://find.forfreedomandlove.com');
             }
+        }
+
+        if (Yii::$app->request->isGet) {
+            return $this->render('login');
         }
 
         $model = new LoginForm();
@@ -109,16 +105,12 @@ class IndexController extends \yii\web\Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
-//        return $this->redirect('/user/index/index');
-        return $this->redirect('https://find.forfreedomandlove.com/user/index/index');
-//        return $this->goHome();
+        return $this->goHome();
     }
 
-    public function actionTest()
+    public function actionProfile()
     {
-//        return $this->redirect('https://find.forfreedomandlove.com/user/index/index');
-//        return $this->redirect('/user/index/index');
-        return $this->goHome();
+        return $this->render('profile', ['name' => User::getCurrent()->username]);
     }
 
     public function actionSignUp()
@@ -138,10 +130,9 @@ class IndexController extends \yii\web\Controller
         $model = new ActivateAccountForm();
         if ($model->load(Yii::$app->request->get(), '') && $model->activate()) {
             $title = 'Congratulations! You have activated your account and you can login now';
-        } else {
-            $title = $model->errors;
+            return $this->render('activate', ['title' => $title]);
         }
-        return $this->render('activate', ['title' => $title]);
+        return $this->goHome();
     }
 
 
@@ -149,10 +140,10 @@ class IndexController extends \yii\web\Controller
     {
         $new_email = Yii::$app->request->post('new_email');
         if (!$new_email) {
-            AjaxResponse::fail(null, 'lack params');
+            AjaxResponse::fail(null, 'New email is required');
         }
         if (User::findOne(['email' => $new_email])) {
-            AjaxResponse::fail(null, 'the email you provided has been used');
+            AjaxResponse::fail(null, 'The new email you provided has been used');
         }
         $transaction = Yii::$app->db->beginTransaction();
         $user = User::getCurrent();
@@ -163,9 +154,9 @@ class IndexController extends \yii\web\Controller
         $title = 'Dynamic Key to verify email registered in find.forfreedomandlove.com';
         $content = "<br><br>" . $key;
         $content .= "<br>" . 'the dynamic key will expired after ' . User::DYNAMIC_KEY_LOGIN_LIFE . ' minutes';
-        $content .= "<br>" . 'If this dynamic key is not sent by you ,your password has disclosed.';
+        $content .= "<br><br>" . 'If this dynamic key is not sent by you ,your password has disclosed.';
         $content .= 'Don\'t tell this dynamic key to anyone and you should change your password as soon as possible';
-        $content .= "<br>" . 'If this dynamic key is sent by you,the new email to verify your account will be replace by' . $new_email . "<br><br><br><br><br>";
+        $content .= "<br><br>" . 'If this dynamic key is sent by you,the email to verify your account will be replace by ' . $new_email . "<br><br><br><br><br>";
         $mail = Yii::$app->mailer->compose()
             ->setTo($user->email)
             ->setSubject($title)
@@ -188,9 +179,9 @@ class IndexController extends \yii\web\Controller
         }
 
         $new_email = Yii::$app->request->post('new_email');
-        $key = Yii::$app->request->post('key');
+        $key = Yii::$app->request->post('dynamic_key');
         if (!$new_email || !$key) {
-            AjaxResponse::fail(null, 'lack params');
+            AjaxResponse::fail(null, 'Both new email and dynamic key are required');
         }
 
         if (User::findOne(['email' => $new_email])) {
@@ -207,16 +198,17 @@ class IndexController extends \yii\web\Controller
         $user->save();
 
         $title = 'Activate Account on find.forfreedomandlove.com';
-        $content = "<br><br>" . 'Click the following link to activate the account you have registered on find.forfreedomandlove.com';
-        $content .= "<br><a href=\"localhost/find/frontend/web/index.php?r=user/index/activate&user_id={$user->id}&key={$activate_key}\" target=\"_blank\">";
-        $content .= "localhost/find/frontend/web/index.php?r=user/index/activate</a>";
-        $content .= "<br>" . 'You can also copy the link and open it in the Address Field' . "<br><br><br>";
+        $content = "<br><br>" . 'Click the Activate Link to activate the account you have registered on find.forfreedomandlove.com';
+        $content .= "<br><br>Activate Link: <a href=\"https://find.forfreedomandlove.com/user/index/activate/{$user->id}/{$activate_key}\" target=\"_blank\">";
+        $content .= "https://find.forfreedomandlove.com/user/index/activate/{$user->id}/{$activate_key}</a>";
+        $content .= "<br><br>" . 'You can also copy the link and open it in the Address Field' . "<br><br><br>";
 
         Yii::$app->mailer->compose()
             ->setTo($new_email)
             ->setSubject($title)
             ->setHtmlBody($content)
             ->send();
+        Yii::$app->user->logout();
         AjaxResponse::success();
     }
 
@@ -231,20 +223,19 @@ class IndexController extends \yii\web\Controller
         $new_password_confirm = Yii::$app->request->post('new_password_confirm');
 
         if (!$old_password || !$new_password || !$new_password_confirm) {
-            AjaxResponse::fail(null, 'lack params');
-        }
-
-        $user = User::getCurrent();
-        if (!$user->validatePassword($old_password)) {
-            AjaxResponse::fail(null, 'Your old password was incorrect. Please try again.');
+            AjaxResponse::fail(null, 'Three inputs are required');
         }
         if ($new_password != $new_password_confirm) {
             AjaxResponse::fail(null, 'Your confirm password is different from the new password. Please try again.');
         }
+        $user = User::getCurrent();
+        if (!$user->validatePassword($old_password)) {
+            AjaxResponse::fail(null, 'Your old password was incorrect. Please try again.');
+        }
         $user->setPassword($new_password);
         $user->save();
         Yii::$app->user->logout();
-        AjaxResponse::success(null, 'You have change password successfully,please login again');
+        AjaxResponse::success();
     }
 
 

@@ -38,11 +38,6 @@
                 </div>
             {else}
                 <div class="row">
-                    <a href="/user/index/test">
-                        <button class=""><h4>首页</h4></button>
-                    </a>
-                </div>
-                <div class="row">
                     <button class=""><h4>创建事件</h4></button>
                 </div>
                 <div class="row">
@@ -52,7 +47,9 @@
                     <button class=""><h4>已结束事件</h4></button>
                 </div>
                 <div class="row">
-                    <button class=""><h4>用户中心</h4></button>
+                    <a href="/user/index/profile">
+                        <button class=""><h4>个人中心</h4></button>
+                    </a>
                 </div>
                 <div class="row">
                     <a href="/user/index/logout">

@@ -3,27 +3,24 @@
         <div class="form">
 
             <div class="contact">
-                <label for="user-name"><h5>用户名</h5></label>
-                <input type="text" id="user-name">
-                <label for="user-email"><h5>邮箱</h5></label>
-                <input type="text" id="user-email">
-                <label for="user-password"><h5>新密码</h5></label>
-                <input type="text" id="user-password">
-                <label for="user-password-confirm"><h5>确认新密码</h5></label>
-                <input type="text" id="user-password-confirm">
-                <label for="user-key"><h5>动态口令</h5></label>
-                <input type="text" id="user-key">
+                <label for="name"><h5>用户名</h5></label>
+                <input type="text" id="name">
+                <label for="email"><h5>邮箱</h5></label>
+                <input type="text" id="email">
+                <label for="password"><h5>新密码</h5></label>
+                <input type="password" id="password">
+                <label for="password-confirm"><h5>确认新密码</h5></label>
+                <input type="password" id="password-confirm">
+                <label for="dynamic-key"><h5>动态口令</h5></label>
+                <input type="text" id="dynamic-key">
+                <label id="reset-result" for="dynamic-key"><h5>&nbsp</h5></label>
 
                 <div class="bottom-button">
                     <div class="large-6 columns">
-                        <a href="/user/index/send-dynamic-key">
-                            <button class=""><h5>发送动态口令</h5></button>
-                        </a>
+                        <button id="send-dynamic-key"><h5>发送动态口令</h5></button>
                     </div>
                     <div class="large-6 columns">
-                        <a href="/user/index/reset-password">
-                            <button class=""><h5>重设密码</h5></button>
-                        </a>
+                        <button id="reset"><h5>重设密码</h5></button>
                     </div>
                 </div>
             </div>

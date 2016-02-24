@@ -2,9 +2,10 @@
     <div class="large-9 medium-8 columns">
 
         <div class="view">
+
             <div class="item">
                 <div class="title">
-                    <h4>{$title}</h4>
+                    <h4>关于失踪儿童定位系统</h4>
                 </div>
             </div>
 
@@ -18,14 +19,44 @@
                     <br><br>在系统对反馈信息的分析处理显示过程中，借助GIS地理信息系统支持。
                 </h5>
             </div>
+
+
         </div>
 
     </div>
     <div class="large-3 medium-4 columns">
         <div class="side">
             <div class="row">
-                <a href="/user/index/login">
-                    <button class=""><h4>登陆</h4></button>
+                <a href="/user/index/index">
+                    <button><h4>首页</h4></button>
+                </a>
+            </div>
+            <div class="row">
+                <button><h4>{$name}</h4></button>
+            </div>
+            <div class="row">
+                <a href="/user/index/contact">
+                    <button><h4>写邮件</h4></button>
+                </a>
+            </div>
+            <div class="row">
+                <a href="/user/index/change-email">
+                    <button><h4>更改邮箱</h4></button>
+                </a>
+            </div>
+            <div class="row">
+                <a href="/user/index/change-password">
+                    <button><h4>更改密码</h4></button>
+                </a>
+            </div>
+            <div class="row">
+                <a href="/user/index/sign-up">
+                    <button><h4>注册用户</h4></button>
+                </a>
+            </div>
+            <div class="row">
+                <a href="/user/index/logout">
+                    <button><h4>退出</h4></button>
                 </a>
             </div>
         </div>

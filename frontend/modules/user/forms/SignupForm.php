@@ -34,7 +34,7 @@ class SignupForm extends Model
             ['username', 'filter', 'filter' => 'trim'],
             ['username', 'required'],
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
+            ['username', 'string', 'min' => 4, 'max' => 13],
 
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required'],
@@ -80,8 +80,8 @@ class SignupForm extends Model
             $title = 'Activate Account on find.forfreedomandlove.com';
 
             $content = "<br><br>" . 'Click the following link to activate the account you have registered on find.forfreedomandlove.com';
-            $content .= "<br><a href=\"localhost/find/frontend/web/index.php?r=user/index/activate&user_id={$user->id}&key={$key}\" target=\"_blank\">";
-            $content .= "localhost/find/frontend/web/index.php?r=user/index/activate</a>";
+            $content .= "<br><a href=\"https://find.forfreedomandlove.com/user/index/activate/{$user->id}/{$key}\" target=\"_blank\">";
+            $content .= "https://find.forfreedomandlove.com/user/index/activate/{$user->id}/{$key}</a>";
             $content .= "<br>" . 'You can also copy the link and open it in the Address Field' . "<br><br><br>";
 
             $mail = Yii::$app->mailer->compose()

@@ -1,8 +1,7 @@
 .view {
-    padding: 50px 10px 100px 0;
+    padding: 60px 10px 100px 0;
     background: url("line.png") right top repeat-y;
 }
-
 
 .view .item {
     background: url("line.png") left bottom repeat-x;
@@ -48,7 +47,8 @@
 }
 
 .view .content {
-    padding: 20px 0 70px 0;
+    padding: 20px 0 180px 0;
+    background: url("line.png") left bottom repeat-x;
 }
 
 .view .content h5 {

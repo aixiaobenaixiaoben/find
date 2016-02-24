@@ -23,6 +23,8 @@ class ContactForm extends Model
         return [
             [['email', 'subject', 'body'], 'required'],
             ['email', 'email'],
+            ['subject', 'string', 'max' => 30],
+            ['body', 'string', 'max' => 500],
             [['subject', 'body'], 'safe']
         ];
     }
@@ -34,11 +36,12 @@ class ContactForm extends Model
      */
     public function sendEmail()
     {
-        return Yii::$app->mailer->compose()
+        if (!$this->validate()) return false;
+        $mail = Yii::$app->mailer->compose()
             ->setTo($this->email)
-            ->setFrom(User::getCurrent()->email)
             ->setSubject($this->subject)
-            ->setTextBody($this->body)
+            ->setHtmlBody($this->body)
             ->send();
+        return $mail;
     }
 }
