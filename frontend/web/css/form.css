@@ -7,7 +7,7 @@
     padding: 0 50px;
 }
 
-.form .contact{
+.form .contact {
     padding-bottom: 50px;
     background: url("line.png") left bottom repeat-x;
 }
@@ -20,8 +20,16 @@
     color: #FDFDFD;
 }
 
+.form .contact select {
+    background-color: #2E2938;
+    width: auto;
+}
+
 .form .contact h5 {
     line-height: 35px;
+}
+
+.form .contact h6{
 }
 
 .form .contact .bottom-button {

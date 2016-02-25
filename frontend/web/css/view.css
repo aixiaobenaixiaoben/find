@@ -12,6 +12,11 @@
     font-weight: bold;
 }
 
+.view .item .title h1 {
+    line-height: 80px;
+    font-weight: bold;
+}
+
 .view .item .about {
     height: 40px;
     position: relative;

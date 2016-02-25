@@ -15,6 +15,10 @@ $(function () {
     signUp();
 
     sendEmail();
+
+    $('#datetimepicker').datetimepicker({
+        format: 'Y-m-d H:i'
+    });
 });
 
 function sendEmail() {

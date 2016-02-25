@@ -18,9 +18,9 @@ class Module extends \yii\base\Module
 
     public function beforeAction($action)
     {
-        /*if (!User::getCurrent() || !Admin::getCurrent()) {
+        if (!User::getCurrent() || !Admin::getCurrent()) {
             throw new HttpException(403, 'You are not an admin');
-        }*/
+        }
         return parent::beforeAction($action);
     }
 }

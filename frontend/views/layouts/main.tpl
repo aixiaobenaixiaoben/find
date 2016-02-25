@@ -11,13 +11,14 @@
 
     {$this->registerCssFile('/vendor/foundation/css/foundation.min.css')}
     {$this->registerCssFile('/vendor/semantic/semantic.min.css')}
+    {$this->registerCssFile('/css/jquery.datetimepicker.css')}
     {$this->registerCssFile('/css/index.css')}
     {$this->registerCssFile('/css/board.css')}
     {$this->registerCssFile('/css/side.css')}
     {$this->registerCssFile('/css/view.css')}
     {$this->registerCssFile('/css/form.css')}
-
     {$this->registerJsFile('/js/jquery.min.js')}
+    {$this->registerJsFile('/js/jquery.datetimepicker.js')}
     {$this->registerJsFile('/js/jquery.animate.colors.min.js')}
     {$this->registerJsFile('/js/index.js')}
 

@@ -38,7 +38,9 @@
                 </div>
             {else}
                 <div class="row">
-                    <button class=""><h4>创建事件</h4></button>
+                    <a href="/find/event/create-event">
+                        <button class=""><h4>创建事件</h4></button>
+                    </a>
                 </div>
                 <div class="row">
                     <button class=""><h4>进行中事件</h4></button>
@@ -46,6 +48,13 @@
                 <div class="row">
                     <button class=""><h4>已结束事件</h4></button>
                 </div>
+                {if $admin}
+                    <div class="row">
+                        <a href="/admin/index/index">
+                            <button class=""><h4>管理入口</h4></button>
+                        </a>
+                    </div>
+                {/if}
                 <div class="row">
                     <a href="/user/index/profile">
                         <button class=""><h4>个人中心</h4></button>
@@ -57,31 +66,6 @@
                     </a>
                 </div>
             {/if}
-            {*<div class="row">
-                <button class=""><h4>首页</h4></button>
-            </div>
-            <div class="row">
-                <button class=""><h4>结束事件</h4></button>
-            </div>
-
-
-            <div class="row">
-                <button class=""><h4>首页</h4></button>
-            </div>
-            <div class="row">
-                <button class=""><h4>写邮件</h4></button>
-            </div>
-            <div class="row">
-                <button class=""><h4>更改邮箱</h4></button>
-            </div>
-            <div class="row">
-                <button class=""><h4>更改密码</h4></button>
-            </div>
-            <div class="row">
-                <button class=""><h4>注册用户</h4></button>
-            </div>*}
-
-
         </div>
     </div>
 </div>

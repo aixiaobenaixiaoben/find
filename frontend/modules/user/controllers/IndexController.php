@@ -2,6 +2,7 @@
 
 namespace frontend\modules\user\controllers;
 
+use common\models\admin\Admin;
 use common\models\AjaxResponse;
 use common\models\User;
 use frontend\modules\user\forms\ActivateAccountForm;
@@ -66,7 +67,8 @@ class IndexController extends \yii\web\Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        $admin = Admin::getCurrent();
+        return $this->render('index', ['admin' => $admin]);
     }
 
     public function actionLogin()
