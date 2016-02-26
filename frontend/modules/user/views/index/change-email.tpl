@@ -7,7 +7,7 @@
                 <input type="text" id="email">
                 <label for="dynamic-key"><h5>动态口令</h5></label>
                 <input type="password" id="dynamic-key">
-                <label id="change-email-result" for="dynamic-key"><h5>&nbsp</h5></label>
+                <label id="change-email-result"><h5>&nbsp</h5></label>
 
                 <div class="bottom-button">
                     <div class="large-6 columns">

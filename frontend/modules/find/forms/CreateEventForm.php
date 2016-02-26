@@ -32,7 +32,7 @@ class CreateEventForm extends Model
         return [
             [['theme', 'urgent', 'title_from_provider', 'occur_at'], 'required'],
             [['theme', 'description', 'title_from_provider'], 'string', 'length' => [4, 255]],
-            ['occur_at', 'date', 'format' => 'yyyy-MM-dd H:i:s'],
+            ['occur_at', 'date', 'format' => 'yyyy-MM-dd H:i'],
             ['urgent', 'in', 'range' => [
                 Event::URGENT_MILD,
                 Event::URGENT_URGENT,

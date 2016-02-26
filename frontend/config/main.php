@@ -31,7 +31,7 @@ return [
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
-            'loginUrl'=>['user/index/login'],
+            'loginUrl' => ['user/index/login'],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -52,9 +52,13 @@ return [
 //                '<id:\d+>' => 'index/view',
 //                '<controller:[-\w]+>/<id:\d+>' => '<controller>/view',
                 '<controller:[-\w]+>/<action:[-\w]+>' => '<controller>/<action>',
-//                '<controller:[-\w]+>/<action:[-\w]+>/<id:\d+>' => '<controller>/<action>',
+                '<controller:[-\w]+>/<action:[-\w]+>/<id:\d+>' => '<controller>/<action>',
+
+                'find/event/event-lists/<is_finish:[01]>' => 'find/event/event-lists',
+                'user/index/activate/<user_id:\d+>/<key:[-\w]{8}>' => 'user/index/activate',
+
                 '<module:[-\w]+>/<controller:[-\w]+>/<action:[-\w]+>' => '<module>/<controller>/<action>',
-                '<module:[-\w]+>/<controller:[-\w]+>/<action:[-\w]+>/<user_id:\d+>/<key:[-\w]+>' => '<module>/<controller>/<action>',
+                '<module:[-\w]+>/<controller:[-\w]+>/<action:[-\w]+>/<id:\d+>' => '<module>/<controller>/<action>',
             ],
         ],
         'view' => [

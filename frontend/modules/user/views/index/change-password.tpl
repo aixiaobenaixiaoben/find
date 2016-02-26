@@ -9,7 +9,7 @@
                 <input type="password" id="new-password">
                 <label for="password-confirm"><h5>确认新密码</h5></label>
                 <input type="password" id="password-confirm">
-                <label id="change-password-result" for="password-confirm"><h5>&nbsp</h5></label>
+                <label id="change-password-result"><h5>&nbsp</h5></label>
 
                 <div class="bottom-button">
                     <div class="large-6 columns">

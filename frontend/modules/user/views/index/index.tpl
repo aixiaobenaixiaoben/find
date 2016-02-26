@@ -43,10 +43,14 @@
                     </a>
                 </div>
                 <div class="row">
-                    <button class=""><h4>进行中事件</h4></button>
+                    <a href="/find/event/event-lists/0">
+                        <button class=""><h4>进行中事件</h4></button>
+                    </a>
                 </div>
                 <div class="row">
-                    <button class=""><h4>已结束事件</h4></button>
+                    <a href="/find/event/event-lists/1">
+                        <button class=""><h4>已结束事件</h4></button>
+                    </a>
                 </div>
                 {if $admin}
                     <div class="row">

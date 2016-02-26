@@ -10,7 +10,7 @@
                 <label for="content"><h5>留言</h5></label>
                 <textarea style="background-color:#2E2938" rows="5" class="input-class" id="content"
                           placeholder="Your Message Here"></textarea>
-                <label id="send-email-result" for="subject"><h5>&nbsp</h5></label>
+                <label id="send-email-result"><h5>&nbsp</h5></label>
 
                 <div class="bottom-button">
                     <div class="large-6 columns">

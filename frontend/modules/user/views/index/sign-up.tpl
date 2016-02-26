@@ -9,7 +9,7 @@
                 <input type="text" id="email">
                 <label for="password"><h5>密码</h5></label>
                 <input type="password" id="password">
-                <label id="sign-up-result" for="password"><h5>&nbsp</h5></label>
+                <label id="sign-up-result"><h5>&nbsp</h5></label>
 
                 <div class="bottom-button">
                     <div class="large-6 columns">

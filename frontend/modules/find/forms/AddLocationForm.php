@@ -19,10 +19,10 @@ use yii\db\Exception;
 class AddLocationForm extends Model
 {
     public $event_id;
-    public $identity_kind;
     public $title_from_provider;
     public $occur_at;
     public $provided_at;
+    public $identity_kind;
 
     public $identity_info;
 
@@ -33,8 +33,9 @@ class AddLocationForm extends Model
     public function init()
     {
         parent::init();
-        $this->on(Model::EVENT_BEFORE_VALIDATE, function () {
+        $this->on(Model::EVENT_AFTER_VALIDATE, function () {
             $this->requireEventNotFinish();
+            $this->requireTimeReliable();
         });
     }
 
@@ -43,19 +44,33 @@ class AddLocationForm extends Model
         return [
             [['event_id', 'identity_kind', 'title_from_provider', 'occur_at', 'provided_at'], 'required'],
             ['event_id', 'integer'],
-            [['title_from_provider', 'identity_info'], 'string', 'length' => [4, 255]],
+            ['title_from_provider', 'string', 'length' => [4, 255]],
 
+            ['identity_info', 'required', 'when' => function ($this) {
+                return $this->identity_kind == LocationProvider::IDENTITY_KIND_PEOPLE;
+            }, 'message' => 'Phone Number is required'],
             ['identity_info', 'match', 'pattern' => '/^1[34578]\d{9}$/', 'when' => function ($this) {
                 return $this->identity_kind == LocationProvider::IDENTITY_KIND_PEOPLE;
-            }],
+            }, 'message' => 'Phone Number is invalid'],
 
-            [['occur_at', 'provided_at'], 'date', 'format' => 'yyyy-MM-dd H:i:s'],
+            [['occur_at', 'provided_at'], 'date', 'format' => 'yyyy-MM-dd H:i'],
             ['identity_kind', 'in', 'range' => [
                 LocationProvider::IDENTITY_KIND_POLICE,
                 LocationProvider::IDENTITY_KIND_MONITOR_SYSTEM,
                 LocationProvider::IDENTITY_KIND_PEOPLE,
             ]],
         ];
+    }
+
+    public function requireTimeReliable()
+    {
+        //时间可信度判断
+        if (!$this->hasErrors()) {
+            $event = $this->getEvent();
+            if (!$event || $this->occur_at < $event->occur_at || $this->provided_at < $this->occur_at) {
+                $this->addError('occur_at', 'The date provided is unreliable');
+            }
+        }
     }
 
     public function requireEventNotFinish()
@@ -141,20 +156,19 @@ class AddLocationForm extends Model
         $location_new->longitude = $details['longitude'];
 
         if ($this->identity_kind == LocationProvider::IDENTITY_KIND_PEOPLE) {
-            $location_new->is_reliable = $this->isNewLocationReliable();
+            $location_new->is_reliable = $this->isSpaceReliable();
         }
 
         $location_new->save();
         $this->_location_new = $location_new;
     }
 
-    public function isNewLocationReliable()
+    public function isSpaceReliable()
     {
         //空间可信度判断
 
 
-        //时间可信度判断
-        return $this->getEvent()->occur_at <= $this->occur_at && $this->occur_at <= $this->provided_at;
+        return true;
     }
 
     /**

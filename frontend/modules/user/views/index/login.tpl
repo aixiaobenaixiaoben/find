@@ -10,7 +10,7 @@
                 <label for="dynamic-key"><h5>动态口令</h5></label>
                 <input type="text" id="dynamic-key">
                 Remember Me&nbsp<input type="checkbox" checked><br>
-                <label id="login-result" for="dynamic-key"><h5>&nbsp</h5></label>
+                <label id="login-result"><h5>&nbsp</h5></label>
 
                 <div class="bottom-button">
                     <div class="large-6 columns">

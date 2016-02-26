@@ -65,3 +65,14 @@
     line-height: 50px;
 }
 
+.view .content table{
+    width: 100%;
+}
+
+.view .content table,th,tr,td{
+    background: #3A3346;
+}
+
+.view .content table tr td:first-child{
+    width: 40%;
+}

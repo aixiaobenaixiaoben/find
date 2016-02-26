@@ -13,7 +13,7 @@
                 <input type="password" id="password-confirm">
                 <label for="dynamic-key"><h5>动态口令</h5></label>
                 <input type="text" id="dynamic-key">
-                <label id="reset-result" for="dynamic-key"><h5>&nbsp</h5></label>
+                <label id="reset-result"><h5>&nbsp</h5></label>
 
                 <div class="bottom-button">
                     <div class="large-6 columns">

@@ -3,30 +3,32 @@
         <div class="form">
 
             <div class="contact">
-                <label for="theme"><h5>*事件概述</h5></label>
-                <input type="text" id="theme">
-                <label for="description"><h5>详情</h5></label>
-                <textarea style="background-color:#2E2938" rows="5" id="description"
-                          placeholder="Describe the event here"></textarea>
-                <label for="title-from-provider"><h5>*当事人提供事件发生地点</h5></label>
-                <input type="text" id="title-from-provider">
-                紧急程度&nbsp&nbsp&nbsp
-                mild <input type="radio" name="urgent-level" value="mild" checked>&nbsp&nbsp
-                urgent <input type="radio" name="urgent-level" value="urgent">&nbsp&nbsp
-                emergency <input type="radio" name="urgent-level" value="emergency"><br>
+                <input type="hidden" id="event_id" value={$event_id}>
+                <label for="title"><h5>*发生位置</h5></label>
+                <input type="text" id="title" placeholder="XX市XX区XX路XXX号">
+                <label for="occur_at"><h5>*发生时间</h5></label>
+                <input type="text" id="occur_at" class="datetimepicker">
+                <label for="provided_at"><h5>*信息提供时间</h5></label>
+                <input type="text" id="provided_at" class="datetimepicker">
 
-                <label for="datetimepicker"><h5>*事件发生时间</h5></label>
-                <input type="text" id="datetimepicker">
-                <label id="create-event-result"><h5>&nbsp</h5></label>
+                信息来源&nbsp&nbsp&nbsp
+                Police <input type="radio" name="identity_kind" value="police" checked>&nbsp&nbsp
+                Monitor_System <input type="radio" name="identity_kind" value="monitor_system">&nbsp&nbsp
+                People <input type="radio" name="identity_kind" value="people"><br>
+
+                <label for="phone"><h5>提供者手机号码</h5></label>
+                <input type="text" id="phone" placeholder="仅当信息来源为People时填写" class="phone">
+
+                <label id="add-location-result"><h5>&nbsp</h5></label>
 
                 <div class="bottom-button">
                     <div class="large-6 columns">
-                        <a href="/user/index/index">
+                        <a href="/find/event/event/{$event_id}">
                             <button><h5>取消</h5></button>
                         </a>
                     </div>
                     <div class="large-6 columns">
-                        <button id="create-event"><h5>新建事件</h5></button>
+                        <button id="add-location"><h5>添加新节点</h5></button>
                     </div>
                 </div>
             </div>

@@ -16,10 +16,93 @@ $(function () {
 
     sendEmail();
 
-    $('#datetimepicker').datetimepicker({
-        format: 'Y-m-d H:i'
+    $('.datetimepicker').datetimepicker({
+        format: 'Y-m-d H:i',
+        maxDate: 'tomorrow'
     });
+
+    createEvent();
+    addLocation();
 });
+function addLocation() {
+    $('#add-location').click(function () {
+        $('.form input:text').each(function () {
+            if ($('.form input:radio:checked').val() != 'people' && $(this).hasClass('phone')) {
+                return true;
+            }
+            if (!$.trim($(this).val())) {
+                $(this).css({'border': '1px dotted red'});
+                return false;
+            } else {
+                $(this).css({'border': 'none'});
+            }
+        });
+        var data = {};
+        data.event_id = $.trim($('#event_id').val());
+        data.title_from_provider = $.trim($('#title').val());
+        data.occur_at = $.trim($('#occur_at').val());
+        data.provided_at = $.trim($('#provided_at').val());
+        data.identity_kind = $('.form input:radio:checked').val();
+        data.identity_info = $.trim($('#phone').val());
+
+        $.ajax({
+            url: '/find/event/add-location',
+            type: 'post',
+            data: data,
+            dataType: 'json',
+            success: function (res) {
+                if (res.success) {
+                    location.href = '/find/event/event/' + data.event_id;
+                } else {
+                    var message = '';
+                    for (var key in res.message) {
+                        message += res.message[key];
+                        break;
+                    }
+                    $('#add-location-result h5').html(message);
+                }
+            }
+        });
+    });
+}
+
+function createEvent() {
+    $('#create-event').click(function () {
+        $('.form input:text').each(function () {
+            if (!$.trim($(this).val())) {
+                $(this).css({'border': '1px dotted red'});
+                return false;
+            } else {
+                $(this).css({'border': 'none'});
+            }
+        });
+        var data = {};
+        data.theme = $.trim($('#theme').val());
+        data.description = $.trim($('#description').val());
+        data.title_from_provider = $.trim($('#title-from-provider').val());
+        data.urgent = $('.form input:radio:checked').val()
+        data.occur_at = $.trim($('#datetimepicker').val());
+
+        $.ajax({
+            url: '/find/event/create-event',
+            type: 'post',
+            data: data,
+            dataType: 'json',
+            success: function (res) {
+                if (res.success) {
+                    location.href = '/user/index/index';
+                } else {
+                    var message = '';
+                    for (var key in res.message) {
+                        message += res.message[key];
+                        break;
+                    }
+                    $('#create-event-result h5').html(message);
+                }
+            }
+        });
+    });
+}
 
 function sendEmail() {
     $('#send-email').click(function () {
