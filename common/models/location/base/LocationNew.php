@@ -13,6 +13,7 @@ use Yii;
  * @property integer $user_id
  * @property integer $event_id
  * @property integer $provider_id
+ * @property string $city
  * @property string $title_from_provider
  * @property string $title_from_API
  * @property string $latitude
@@ -43,12 +44,12 @@ abstract class LocationNew extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'event_id', 'provider_id', 'title_from_provider', 'title_from_API', 'latitude', 'longitude'], 'required'],
+            [['user_id', 'event_id', 'provider_id', 'city', 'title_from_provider', 'title_from_API', 'latitude', 'longitude'], 'required'],
             [['user_id', 'event_id', 'provider_id'], 'integer'],
             ['is_reliable', 'boolean'],
             [['latitude', 'longitude'], 'number'],
             [['created_at', 'occur_at'], 'safe'],
-            [['title_from_provider', 'title_from_API'], 'string', 'max' => 255],
+            [['city', 'title_from_provider', 'title_from_API'], 'string', 'max' => 255],
             [['event_id', 'provider_id', 'latitude', 'longitude'], 'unique', 'targetAttribute' => ['event_id', 'provider_id', 'latitude', 'longitude'], 'message' => 'The combination of Event ID, Provider ID, Latitude and Longitude has already been taken.']
         ];
     }
@@ -63,6 +64,7 @@ abstract class LocationNew extends \yii\db\ActiveRecord
             'user_id' => 'User ID',
             'event_id' => 'Event ID',
             'provider_id' => 'Provider ID',
+            'city' => 'City',
             'title_from_provider' => 'Title From Provider',
             'title_from_API' => 'Title From  Api',
             'latitude' => 'Latitude',

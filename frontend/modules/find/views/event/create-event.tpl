@@ -8,8 +8,11 @@
                 <label for="description"><h5>详情</h5></label>
                 <textarea style="background-color:#2E2938" rows="5" id="description"
                           placeholder="Describe the event here"></textarea>
-                <label for="title-from-provider"><h5>*当事人提供事件发生地点</h5></label>
+                <label for="city"><h5>*所在城市</h5></label>
+                <input type="text" id="city">
+                <label for="title-from-provider"><h5>*事件具体地点</h5></label>
                 <input type="text" id="title-from-provider">
+
                 紧急程度&nbsp&nbsp&nbsp
                 mild <input type="radio" name="urgent-level" value="mild" checked>&nbsp&nbsp
                 urgent <input type="radio" name="urgent-level" value="urgent">&nbsp&nbsp

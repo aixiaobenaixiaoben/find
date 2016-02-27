@@ -24,6 +24,8 @@ $(function () {
     createEvent();
     addLocation();
 });
+
+
 function addLocation() {
     $('#add-location').click(function () {
         $('.form input:text').each(function () {
@@ -39,7 +41,8 @@ function addLocation() {
         });
         var data = {};
         data.event_id = $.trim($('#event_id').val());
-        data.title_from_provider = $.trim($('#title').val());
+        data.city = $.trim($('#location-city').val());
+        data.title_from_provider = $.trim($('#location-title').val());
         data.occur_at = $.trim($('#occur_at').val());
         data.provided_at = $.trim($('#provided_at').val());
         data.identity_kind = $('.form input:radio:checked').val();
@@ -79,6 +82,7 @@ function createEvent() {
         var data = {};
         data.theme = $.trim($('#theme').val());
         data.description = $.trim($('#description').val());
+        data.city = $.trim($('#city').val());
         data.title_from_provider = $.trim($('#title-from-provider').val());
         data.urgent = $('.form input:radio:checked').val()
         data.occur_at = $.trim($('#datetimepicker').val());

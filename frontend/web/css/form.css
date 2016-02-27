@@ -12,6 +12,11 @@
     background: url("line.png") left bottom repeat-x;
 }
 
+.form .contact #map-result{
+    display: none;
+    background: #2E2938;
+}
+
 .form .contact input, textarea {
     border-radius: 3px;
     border: none;

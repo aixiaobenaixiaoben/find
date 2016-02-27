@@ -13,6 +13,7 @@ class m160211_105227_create_location_new extends Migration
             'user_id' => Schema::TYPE_INTEGER . ' NOT NULL',
             'event_id' => Schema::TYPE_INTEGER . ' NOT NULL',
             'provider_id' => Schema::TYPE_INTEGER . ' NOT NULL',
+            'city' => Schema::TYPE_STRING . '(255) NOT NULL',
             'title_from_provider' => Schema::TYPE_STRING . '(255) NOT NULL',
             'title_from_API' => Schema::TYPE_STRING . '(255) NOT NULL',
             'latitude' => Schema::TYPE_DECIMAL . '(13,10) NOT NULL',

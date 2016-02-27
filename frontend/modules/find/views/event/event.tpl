@@ -22,38 +22,42 @@
             <div class="content">
                 <table>
                     <tr>
-                        <td><h5>Urgent:</h5></td>
+                        <td><h5>紧急程度:</h5></td>
                         <td><h5>{$event.urgent|upper}</h5></td>
                     </tr>
                     <tr>
-                        <td><h5>Created By:</h5></td>
+                        <td><h5>创建者:</h5></td>
                         <td><h5>{$event.user.username}</h5></td>
                     </tr>
                     <tr>
-                        <td><h5>Occur At:</h5></td>
+                        <td><h5>发生时间:</h5></td>
                         <td><h5> {$event.occur_at}</h5></td>
                     </tr>
                     <tr>
-                        <td><h5>Description:</h5></td>
+                        <td><h5>详情:</h5></td>
                         <td><h5>{$event.description}</h5></td>
                     </tr>
 
 
                     <tr>
-                        <td><h5>Position Of Latest Appearance:</h5></td>
+                        <td><h5>最近出现位置:</h5></td>
+                        <td><h5>{$location_new.city}</h5></td>
+                    </tr>
+                    <tr>
+                        <td><h5>最近出现位置:</h5></td>
                         <td><h5>{$location_new.title_from_API}</h5></td>
                     </tr>
                     <tr>
-                        <td><h5>Time Of Latest Appearance:</h5></td>
+                        <td><h5>最近出现时间:</h5></td>
                         <td><h5>{$location_new.occur_at}</h5></td>
                     </tr>
                     <tr>
-                        <td><h5>Kind Of Info Source:</h5></td>
+                        <td><h5>消息来源:</h5></td>
                         <td><h5>{$provider.identity_kind|upper}</h5></td>
                     </tr>
                     {if $provider.identity_kind=='people'}
                         <tr>
-                            <td><h5>Detail Of Info Source:</h5></td>
+                            <td><h5>消息提供者信息:</h5></td>
                             <td><h5>{$provider.identity_info}</h5></td>
                         </tr>
                     {/if}
@@ -95,17 +99,17 @@
             {else}
                 <div class="row">
                     <a href="/find/event/{*create-event*}">
-                        <button class=""><h4>查看地图</h4></button>
+                        <button class=""><h4>查看最近出现位置地图</h4></button>
+                    </a>
+                </div>
+                <div class="row">
+                    <a href="/find/event/{*create-event*}">
+                        <button class=""><h4>查看运动轨迹示意图</h4></button>
                     </a>
                 </div>
                 <div class="row">
                     <a href="/find/event/add-location/{$event.id}">
                         <button class=""><h4>添加新结点</h4></button>
-                    </a>
-                </div>
-                <div class="row">
-                    <a href="/find/event/finish-event/{$event.id}">
-                        <button class=""><h4>关闭该事件</h4></button>
                     </a>
                 </div>
                 {if $event.urgent!='emergency'}
@@ -122,7 +126,11 @@
                         </a>
                     </div>
                 {/if}
-
+                <div class="row">
+                    <a href="/find/event/finish-event/{$event.id}">
+                        <button class=""><h4>关闭该事件</h4></button>
+                    </a>
+                </div>
             {/if}
             <div class="row">
                 <a href="/user/index/logout">

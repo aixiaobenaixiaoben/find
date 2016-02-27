@@ -4,8 +4,10 @@
 
             <div class="contact">
                 <input type="hidden" id="event_id" value={$event_id}>
-                <label for="title"><h5>*发生位置</h5></label>
-                <input type="text" id="title" placeholder="XX市XX区XX路XXX号">
+                <label for="location-city"><h5>*所在城市</h5></label>
+                <input type="text" id="location-city">
+                <label for="location-title"><h5>*具体位置</h5></label>
+                <input type="text" id="location-title">
                 <label for="occur_at"><h5>*发生时间</h5></label>
                 <input type="text" id="occur_at" class="datetimepicker">
                 <label for="provided_at"><h5>*信息提供时间</h5></label>

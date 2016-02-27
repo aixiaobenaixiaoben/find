@@ -19,6 +19,7 @@ use yii\db\Exception;
 class AddLocationForm extends Model
 {
     public $event_id;
+    public $city;
     public $title_from_provider;
     public $occur_at;
     public $provided_at;
@@ -42,9 +43,9 @@ class AddLocationForm extends Model
     public function rules()
     {
         return [
-            [['event_id', 'identity_kind', 'title_from_provider', 'occur_at', 'provided_at'], 'required'],
+            [['event_id', 'identity_kind', 'city', 'title_from_provider', 'occur_at', 'provided_at'], 'required'],
             ['event_id', 'integer'],
-            ['title_from_provider', 'string', 'length' => [4, 255]],
+            [['title_from_provider', 'city'], 'string', 'length' => [4, 255]],
 
             ['identity_info', 'required', 'when' => function ($this) {
                 return $this->identity_kind == LocationProvider::IDENTITY_KIND_PEOPLE;
@@ -144,12 +145,13 @@ class AddLocationForm extends Model
             'user_id' => Yii::$app->user->id,
             'event_id' => $this->event_id,
             'provider_id' => $this->getProvider()->id,
-            'title_from_provider' => $this->title_from_provider,
+            'city' => $this->city,
+            'title_from_provider' => $this->city . '-' . $this->title_from_provider,
             'occur_at' => $this->occur_at,
         ];
-        $details = Yii::$app->map->searchWithTitle($this->title_from_provider);
+        $details = Yii::$app->map->searchWithTitle($this->city, $this->title_from_provider);
         if (!$details) {
-            throw new MapWithTitleException('fail to search out the place with title from provider : ' . $this->title_from_provider);
+            throw new MapWithTitleException('无法获取该位置准确经纬度,请修改位置信息重试');
         }
         $location_new->title_from_API = $details['title'];
         $location_new->latitude = $details['latitude'];

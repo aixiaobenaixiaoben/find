@@ -2,6 +2,9 @@
 
 namespace frontend\modules\find\controllers;
 
+use common\models\AjaxResponse;
+use Yii;
+
 class IndexController extends \yii\web\Controller
 {
     public function beforeAction($action)
@@ -9,6 +12,7 @@ class IndexController extends \yii\web\Controller
         $this->enableCsrfValidation = false;
         return parent::beforeAction($action);
     }
+
 
     public function actionIndex()
     {
