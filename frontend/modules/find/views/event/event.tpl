@@ -102,13 +102,13 @@
                 </div>
             {else}
                 <div class="row">
-                    <a href="/find/event/view-current-on-map/{$event.id}" target="_blank">
-                        <button class=""><h4>查看最近出现位置地图</h4></button>
+                    <a href="/find/event/view-route-on-map/{$event.id}" target="_blank">
+                        <button class=""><h4>查看运动轨迹地图</h4></button>
                     </a>
                 </div>
                 <div class="row">
-                    <a href="/find/event/view-route-on-map/{$event.id}" target="_blank">
-                        <button class=""><h4>查看运动轨迹地图</h4></button>
+                    <a href="/find/event/send-message/{$event.id}">
+                        <button class=""><h4>短信通知当前位置附近民众</h4></button>
                     </a>
                 </div>
                 <div class="row">

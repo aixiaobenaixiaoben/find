@@ -7,8 +7,8 @@
 }
 
 div {
-    border: 1px dotted #0000ff;
-    /*border: none;*/
+    /*border: 1px dotted #0000ff;*/
+    border: none;
 }
 
 body {
@@ -33,3 +33,245 @@ footer {
     background-color: #3BAF9B;
     font-weight: bold;
 }
+
+/*-----------------------------------------------------------------------form--------*/
+.form {
+    padding: 60px 30px 100px 30px;
+    background: url("line.png") right top repeat-y;
+}
+
+.petty {
+    padding: 0 50px;
+}
+
+.form .contact {
+    padding-bottom: 50px;
+    background: url("line.png") left bottom repeat-x;
+}
+
+.form .contact #map-result {
+    display: none;
+    background: #2E2938;
+}
+
+.form .contact input, textarea {
+    border-radius: 3px;
+    border: none;
+    background-color: #2E2938;
+    padding: 5px;
+    color: #FDFDFD;
+}
+
+.form .contact select {
+    background-color: #2E2938;
+    width: auto;
+}
+
+.form .contact h5 {
+    line-height: 35px;
+}
+
+.form .contact .bottom-button {
+    height: 70px;
+}
+
+.form .contact .bottom-button .columns {
+    line-height: 70px;
+    text-align: center;
+}
+
+.form .contact .bottom-button button {
+    background-color: #564F89;
+    width: 240px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 3px;
+}
+
+.form .contact .bottom-button button h5 {
+    font-weight: bold;
+}
+
+/*--------------------------------------------------------------------------side-----*/
+.side {
+    padding: 70px 20px 60px 20px;
+}
+
+.side button {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    margin: 5px 0;
+    border-radius: 3px;
+    background-color: #564F89;
+}
+
+.side button h4 {
+    color: #FDFDFD;
+    font-weight: bold;
+}
+
+/*---------------------------------------------------------------------------board----*/
+.board {
+    padding: 40px 10px 40px 0;
+    background: url("line.png") right top repeat-y;
+}
+
+.board .tag-name {
+    height: 50px;
+    position: relative;
+    background: url("line.png") left bottom repeat-x;
+}
+
+.board .tag-name i {
+    line-height: 50px;
+    position: absolute;
+    left: 0;
+    color: #34AB96;
+}
+
+.board .tag-name h4 {
+    line-height: 50px;
+    position: absolute;
+    left: 30px;
+    font-weight: bold;
+}
+
+.board .item {
+    padding: 20px 0;
+    background: url("line.png") left bottom repeat-x;
+}
+
+.board .item .title h5 {
+    line-height: 50px;
+    font-weight: bold;
+}
+
+.board .item .content-summary h5 {
+    line-height: 30px;
+    color: #A9ACAD;
+}
+
+.board .item .about {
+    height: 35px;
+    padding-top: 5px;
+    position: relative;
+}
+
+.board .item .about .columns {
+    position: relative;
+    height: 30px;
+}
+
+.board .item .about i {
+    line-height: 40px;
+    color: #34AB96;
+}
+
+.board .item .about a {
+    line-height: 40px;
+    color: #34AB96;
+}
+
+.board .item .about .calendar {
+    position: absolute;
+    left: 0;
+}
+
+.board .item .about .date {
+    position: absolute;
+    left: 25px;
+    cursor: auto;
+}
+
+.board .item .about .pointing {
+    position: absolute;
+    left: -5px;
+}
+
+.board .item .about .link {
+    position: absolute;
+    left: 18px;
+}
+
+/*-------------------------------------------------------------------------view------*/
+.view {
+    padding: 60px 10px 100px 0;
+    background: url("line.png") right top repeat-y;
+}
+
+.view .item {
+    background: url("line.png") left bottom repeat-x;
+}
+
+.view .item .title h4 {
+    line-height: 50px;
+    font-weight: bold;
+}
+
+.view .item .title h1 {
+    line-height: 80px;
+    font-weight: bold;
+}
+
+.view .item .about {
+    height: 40px;
+    position: relative;
+}
+
+.view .item .about i {
+    position: absolute;
+    line-height: 40px;
+    color: #34AB96;
+}
+
+.view .item .about a {
+    position: absolute;
+    line-height: 40px;
+    color: #34AB96;
+}
+
+.view .item .about .calendar {
+    left: 0;
+}
+
+.view .item .about .date {
+    left: 25px;
+    cursor: auto;
+}
+
+.view .item .about .tag {
+    left: 210px;
+}
+
+.view .item .about .tag-name {
+    left: 235px;
+}
+
+.view .content {
+    padding: 20px 0 180px 0;
+    background: url("line.png") left bottom repeat-x;
+}
+
+.view .content h5 {
+    line-height: 30px;
+    color: #A9ACAD;
+}
+
+.view .content h4 {
+    line-height: 50px;
+}
+
+.view .content table {
+    width: 100%;
+}
+
+.view .content table, th, tr, td {
+    background: #3A3346;
+}
+
+.view .content table tr td:first-child {
+    width: 40%;
+}
+
+/*-------------------------------------------------------------------------------*/

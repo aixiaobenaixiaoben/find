@@ -37,11 +37,18 @@ class IndexController extends \yii\web\Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
+                    'index' => ['get'],
+                    'login' => ['get', 'post'],
                     'send-dynamic-key' => ['post'],
                     'logout' => ['get'],
                     'profile' => ['get'],
+                    'sign-up' => ['get', 'post'],
                     'activate' => ['get'],
                     'verify-old-email' => ['post'],
+                    'change-email' => ['get', 'post'],
+                    'change-password' => ['get', 'post'],
+                    'contact' => ['get', 'post'],
+                    'reset-password' => ['get', 'post'],
                 ],
             ],
         ];

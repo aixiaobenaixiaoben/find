@@ -9,10 +9,49 @@ use common\models\location\LocationNew;
 use frontend\modules\find\forms\AddLocationForm;
 use frontend\modules\find\forms\CreateEventForm;
 use Yii;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\HttpException;
 
 class EventController extends \yii\web\Controller
 {
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'event' => ['get'],
+                    'event-lists' => ['get'],
+                    'create-event' => ['get', 'post'],
+                    'add-location' => ['get', 'post'],
+                    'raise-urgent-level' => ['get'],
+                    'moderate-urgent-level' => ['get'],
+                    'finish-event' => ['get'],
+                    'recover-event' => ['get'],
+                    'view-route-on-map' => ['get'],
+                    'send-message' => ['get'],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function actions()
+    {
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+        ];
+    }
+
     public function beforeAction($action)
     {
         $this->enableCsrfValidation = false;
@@ -40,7 +79,7 @@ class EventController extends \yii\web\Controller
 
     public function actionEventLists($is_finish = 0, $page = 1)
     {
-        $rows_every_page = 5;
+        $rows_every_page = 20;
         $events = Event::find()
             ->where('is_finished=:is_finished', [':is_finished' => $is_finish])
             ->orderBy('created_at DESC')
@@ -131,41 +170,15 @@ class EventController extends \yii\web\Controller
 
     public function actionViewRouteOnMap($id)
     {
-        /** @var Event $event */
-        $event = Event::findOne($id);
-        if ($event && !$event->is_finished) {
-            $currents = LocationCurrent::find()
-                ->where('event_id=:event_id', [':event_id' => $id])
-                ->orderBy('occur_at ASC')
-                ->all();
-
-
-
-            $content='';
-
-
-
-
-
-
+        $createMap = Event::createRouteMap($id);
+        if ($createMap) {
             return $this->redirect('http://forfreedomandlove.com/find.route.html');
-//rm -f /alidata/www/default/find.route.html
-//cp /alidata/www/find/frontend/web/find.route.html /alidata/www/default/find.route.html
         }
         return $this->redirect(['/find/event/event/' . $id]);
     }
 
-    public function actionViewCurrentOnMap($id)
+    public function actionSendMessage($id)
     {
-        /** @var Event $event */
-        $event = Event::findOne($id);
-        if ($event && !$event->is_finished) {
-            $current = LocationCurrent::find()
-                ->where('event_id=:event_id', [':event_id' => $id])
-                ->orderBy('occur_at DESC')
-                ->one();
-            return $this->redirect('http://forfreedomandlove.com/find.route.html');
-        }
         return $this->redirect(['/find/event/event/' . $id]);
     }
 
