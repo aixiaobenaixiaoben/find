@@ -102,13 +102,13 @@
                 </div>
             {else}
                 <div class="row">
-                    <a href="/find/event/{*create-event*}">
+                    <a href="/find/event/view-current-on-map/{$event.id}" target="_blank">
                         <button class=""><h4>查看最近出现位置地图</h4></button>
                     </a>
                 </div>
                 <div class="row">
-                    <a href="/find/event/{*create-event*}">
-                        <button class=""><h4>查看运动轨迹示意图</h4></button>
+                    <a href="/find/event/view-route-on-map/{$event.id}" target="_blank">
+                        <button class=""><h4>查看运动轨迹地图</h4></button>
                     </a>
                 </div>
                 <div class="row">

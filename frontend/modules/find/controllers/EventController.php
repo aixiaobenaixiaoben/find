@@ -65,7 +65,7 @@ class EventController extends \yii\web\Controller
         AjaxResponse::fail(null, $event->errors);
     }
 
-    public function actionAddLocation($id=0)
+    public function actionAddLocation($id = 0)
     {
         if (Yii::$app->request->isGet) {
             return $this->render('add_location', ['event_id' => $id]);
@@ -89,7 +89,7 @@ class EventController extends \yii\web\Controller
             }
             $event->save();
         }
-        $this->redirect(['/find/event/event/' . $id]);
+        return $this->redirect(['/find/event/event/' . $id]);
     }
 
     public function actionModerateUrgentLevel($id)
@@ -104,7 +104,7 @@ class EventController extends \yii\web\Controller
             }
             $event->save();
         }
-        $this->redirect(['/find/event/event/' . $id]);
+        return $this->redirect(['/find/event/event/' . $id]);
     }
 
     public function actionFinishEvent($id)
@@ -115,7 +115,7 @@ class EventController extends \yii\web\Controller
             $event->is_finished = true;
             $event->save();
         }
-        $this->redirect(['/find/event/event/' . $id]);
+        return $this->redirect(['/find/event/event/' . $id]);
     }
 
     public function actionRecoverEvent($id)
@@ -126,7 +126,47 @@ class EventController extends \yii\web\Controller
             $event->is_finished = false;
             $event->save();
         }
-        $this->redirect(['/find/event/event/' . $id]);
+        return $this->redirect(['/find/event/event/' . $id]);
+    }
+
+    public function actionViewRouteOnMap($id)
+    {
+        /** @var Event $event */
+        $event = Event::findOne($id);
+        if ($event && !$event->is_finished) {
+            $currents = LocationCurrent::find()
+                ->where('event_id=:event_id', [':event_id' => $id])
+                ->orderBy('occur_at ASC')
+                ->all();
+
+
+
+            $content='';
+
+
+
+
+
+
+            return $this->redirect('http://forfreedomandlove.com/find.route.html');
+//rm -f /alidata/www/default/find.route.html
+//cp /alidata/www/find/frontend/web/find.route.html /alidata/www/default/find.route.html
+        }
+        return $this->redirect(['/find/event/event/' . $id]);
+    }
+
+    public function actionViewCurrentOnMap($id)
+    {
+        /** @var Event $event */
+        $event = Event::findOne($id);
+        if ($event && !$event->is_finished) {
+            $current = LocationCurrent::find()
+                ->where('event_id=:event_id', [':event_id' => $id])
+                ->orderBy('occur_at DESC')
+                ->one();
+            return $this->redirect('http://forfreedomandlove.com/find.route.html');
+        }
+        return $this->redirect(['/find/event/event/' . $id]);
     }
 
 
