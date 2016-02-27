@@ -45,7 +45,8 @@ class AddLocationForm extends Model
         return [
             [['event_id', 'identity_kind', 'city', 'title_from_provider', 'occur_at', 'provided_at'], 'required'],
             ['event_id', 'integer'],
-            [['title_from_provider', 'city'], 'string', 'length' => [4, 255]],
+            ['title_from_provider', 'string', 'length' => [4, 255]],
+            ['city', 'string', 'length' => [2, 255]],
 
             ['identity_info', 'required', 'when' => function ($this) {
                 return $this->identity_kind == LocationProvider::IDENTITY_KIND_PEOPLE;
@@ -69,7 +70,7 @@ class AddLocationForm extends Model
         if (!$this->hasErrors()) {
             $event = $this->getEvent();
             if (!$event || $this->occur_at < $event->occur_at || $this->provided_at < $this->occur_at) {
-                $this->addError('occur_at', 'The date provided is unreliable');
+                $this->addError('occur_at', 'The date provided is unreliable,please check it');
             }
         }
     }
@@ -146,7 +147,7 @@ class AddLocationForm extends Model
             'event_id' => $this->event_id,
             'provider_id' => $this->getProvider()->id,
             'city' => $this->city,
-            'title_from_provider' => $this->city . '-' . $this->title_from_provider,
+            'title_from_provider' => $this->title_from_provider,
             'occur_at' => $this->occur_at,
         ];
         $details = Yii::$app->map->searchWithTitle($this->city, $this->title_from_provider);

@@ -18,16 +18,11 @@ class Map extends Component
         $map_api_key = 'GBbbBdH8xGtu5Zhyf9s49zsp';
         $data = file_get_contents("http://api.map.baidu.com/place/v2/suggestion?query={$title_from_provider}&region={$city}&output=json&ak={$map_api_key}");
         $data = json_decode($data);
-        $title = $data->result[0]->name;
-        $latitude = $data->result[0]->location->lat;
-        $longitude = $data->result[0]->location->lng;
-        if (!$title || !$latitude || !$longitude) {
-            return null;
-        }
+        if (!isset($data->result[0]) || !isset($data->result[0]->location)) return null;
         return [
-            'title' => $title,
-            'latitude' => $latitude,
-            'longitude' => $longitude,
+            'title' => $data->result[0]->name,
+            'latitude' => $data->result[0]->location->lat,
+            'longitude' => $data->result[0]->location->lng,
         ];
     }
 

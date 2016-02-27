@@ -11,6 +11,7 @@ use Yii;
  *
  * @property integer $id
  * @property integer $user_id
+ * @property string $city
  * @property string $theme
  * @property string $description
  * @property integer $is_finished
@@ -49,10 +50,10 @@ abstract class Event extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'theme'], 'required'],
+            [['user_id', 'theme', 'city'], 'required'],
             ['user_id', 'integer'],
             ['is_finished', 'boolean'],
-            [['description', 'urgent'], 'string'],
+            [['description', 'urgent', 'city'], 'string'],
             [['occur_at', 'created_at', 'updated_at'], 'safe'],
             [['theme'], 'string', 'max' => 255],
             ['urgent', 'in', 'range' => [

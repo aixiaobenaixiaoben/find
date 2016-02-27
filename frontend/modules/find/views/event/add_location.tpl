@@ -6,7 +6,7 @@
                 <input type="hidden" id="event_id" value={$event_id}>
                 <label for="location-city"><h5>*所在城市</h5></label>
                 <input type="text" id="location-city">
-                <label for="location-title"><h5>*具体位置</h5></label>
+                <label for="location-title"><h5>*具体位置(尽量详细)</h5></label>
                 <input type="text" id="location-title">
                 <label for="occur_at"><h5>*发生时间</h5></label>
                 <input type="text" id="occur_at" class="datetimepicker">

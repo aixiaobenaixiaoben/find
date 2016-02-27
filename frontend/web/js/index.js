@@ -85,7 +85,7 @@ function createEvent() {
         data.city = $.trim($('#city').val());
         data.title_from_provider = $.trim($('#title-from-provider').val());
         data.urgent = $('.form input:radio:checked').val()
-        data.occur_at = $.trim($('#datetimepicker').val());
+        data.occur_at = $.trim($('#occur_at').val());
 
         $.ajax({
             url: '/find/event/create-event',

@@ -32,7 +32,8 @@ class CreateEventForm extends Model
     {
         return [
             [['theme', 'urgent', 'city', 'title_from_provider', 'occur_at'], 'required'],
-            [['theme', 'description', 'city', 'title_from_provider'], 'string', 'length' => [4, 255]],
+            [['theme', 'description', 'title_from_provider'], 'string', 'length' => [4, 255]],
+            ['city', 'string', 'min' => 2],
             ['occur_at', 'date', 'format' => 'yyyy-MM-dd H:i'],
             ['urgent', 'in', 'range' => [
                 Event::URGENT_MILD,
@@ -70,6 +71,7 @@ class CreateEventForm extends Model
         $event = new Event();
         $event->attributes = [
             'user_id' => Yii::$app->user->id,
+            'city' => $this->city,
             'theme' => $this->theme,
             'description' => $this->description,
             'urgent' => $this->urgent,

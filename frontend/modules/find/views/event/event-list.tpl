@@ -14,6 +14,7 @@
                     </div>
                     <div class="content-summary">
                         <h5>Urgent: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{$event.urgent}</h5>
+                        <h5>City: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{$event.city}</h5>
                         <h5>Occur At: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{$event.occur_at}</h5>
                     </div>
                     <div class="about">

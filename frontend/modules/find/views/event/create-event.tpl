@@ -10,7 +10,7 @@
                           placeholder="Describe the event here"></textarea>
                 <label for="city"><h5>*所在城市</h5></label>
                 <input type="text" id="city">
-                <label for="title-from-provider"><h5>*事件具体地点</h5></label>
+                <label for="title-from-provider"><h5>*事件具体地点(尽量详细)</h5></label>
                 <input type="text" id="title-from-provider">
 
                 紧急程度&nbsp&nbsp&nbsp
@@ -19,7 +19,7 @@
                 emergency <input type="radio" name="urgent-level" value="emergency"><br>
 
                 <label for="datetimepicker"><h5>*事件发生时间</h5></label>
-                <input type="text" id="datetimepicker">
+                <input type="text" class="datetimepicker" id="occur_at">
                 <label id="create-event-result"><h5>&nbsp</h5></label>
 
                 <div class="bottom-button">

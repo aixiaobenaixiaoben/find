@@ -11,6 +11,7 @@ class m160211_090807_create_event extends Migration
         $this->createTable('event', [
             'id' => Schema::TYPE_PK,
             'user_id' => Schema::TYPE_INTEGER . ' NOT NULL',
+            'city' => Schema::TYPE_STRING . '(255) NOT NULL',
             'theme' => Schema::TYPE_STRING . '(255) NOT NULL',
             'description' => Schema::TYPE_TEXT,
             'is_finished' => Schema::TYPE_BOOLEAN . ' NOT NULL DEFAULT 0',

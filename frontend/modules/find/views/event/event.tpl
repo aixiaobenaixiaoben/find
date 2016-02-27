@@ -30,6 +30,10 @@
                         <td><h5>{$event.user.username}</h5></td>
                     </tr>
                     <tr>
+                        <td><h5>发生城市:</h5></td>
+                        <td><h5> {$event.city}</h5></td>
+                    </tr>
+                    <tr>
                         <td><h5>发生时间:</h5></td>
                         <td><h5> {$event.occur_at}</h5></td>
                     </tr>
@@ -40,7 +44,7 @@
 
 
                     <tr>
-                        <td><h5>最近出现位置:</h5></td>
+                        <td><h5>最近出现城市:</h5></td>
                         <td><h5>{$location_new.city}</h5></td>
                     </tr>
                     <tr>
