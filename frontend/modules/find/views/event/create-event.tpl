@@ -3,6 +3,7 @@
         <div class="form">
 
             <div class="contact">
+                <input type="hidden" id="csrf" value={$csrf}>
                 <label for="theme"><h5>*事件概述</h5></label>
                 <input type="text" id="theme">
                 <label for="description"><h5>详情</h5></label>

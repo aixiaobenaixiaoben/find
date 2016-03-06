@@ -52,12 +52,6 @@ class EventController extends \yii\web\Controller
         ];
     }
 
-    public function beforeAction($action)
-    {
-        $this->enableCsrfValidation = false;
-        return parent::beforeAction($action);
-    }
-
     public function actionEvent($id)
     {
         /** @var LocationNew $location_new */
@@ -95,7 +89,8 @@ class EventController extends \yii\web\Controller
     public function actionCreateEvent()
     {
         if (Yii::$app->request->isGet) {
-            return $this->render('create-event');
+            $csrf = Yii::$app->request->csrfToken;
+            return $this->render('create-event', ['csrf' => $csrf]);
         }
         $event = new CreateEventForm();
         if ($event->load(Yii::$app->request->post(), '') && $event->save()) {
@@ -107,7 +102,11 @@ class EventController extends \yii\web\Controller
     public function actionAddLocation($id = 0)
     {
         if (Yii::$app->request->isGet) {
-            return $this->render('add_location', ['event_id' => $id]);
+            $csrf = Yii::$app->request->csrfToken;
+            return $this->render('add_location', [
+                'event_id' => $id,
+                'csrf' => $csrf
+            ]);
         }
         $location = new AddLocationForm();
         if ($location->load(Yii::$app->request->post(), '') && $location->save()) {

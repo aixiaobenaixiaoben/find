@@ -3,6 +3,7 @@
         <div class="form">
 
             <div class="contact">
+                <input type="hidden" id="csrf" value={$csrf}>
                 <label for="old-password"><h5>旧密码</h5></label>
                 <input type="password" id="old-password">
                 <label for="new-password"><h5>新密码</h5></label>

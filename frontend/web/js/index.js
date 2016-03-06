@@ -47,6 +47,7 @@ function addLocation() {
         data.provided_at = $.trim($('#provided_at').val());
         data.identity_kind = $('.form input:radio:checked').val();
         data.identity_info = $.trim($('#phone').val());
+        data._csrf = $.trim($('#csrf').val());
 
         $.ajax({
             url: '/find/event/add-location',
@@ -86,6 +87,7 @@ function createEvent() {
         data.title_from_provider = $.trim($('#title-from-provider').val());
         data.urgent = $('.form input:radio:checked').val()
         data.occur_at = $.trim($('#occur_at').val());
+        data._csrf = $.trim($('#csrf').val());
 
         $.ajax({
             url: '/find/event/create-event',
@@ -124,6 +126,7 @@ function sendEmail() {
         data.email = $.trim($('#email').val());
         data.subject = $.trim($('#subject').val());
         data.body = $.trim($('textarea').val());
+        data._csrf = $.trim($('#csrf').val());
 
         $.ajax({
             url: '/user/index/contact',
@@ -162,6 +165,7 @@ function signUp() {
         data.username = $.trim($('#name').val());
         data.email = $.trim($('#email').val());
         data.password = $.trim($('#password').val());
+        data._csrf = $.trim($('#csrf').val());
         $.ajax({
             url: '/user/index/sign-up',
             type: 'post',
@@ -199,6 +203,7 @@ function changeEmail() {
         var data = {};
         data.new_email = $.trim($('#email').val());
         data.dynamic_key = $.trim($('#dynamic-key').val());
+        data._csrf = $.trim($('#csrf').val());
         $.ajax({
             url: '/user/index/change-email',
             type: 'post',
@@ -226,6 +231,7 @@ function changeEmailSendDynamicKey() {
 
         var data = {};
         data.new_email = new_email;
+        data._csrf = $.trim($('#csrf').val());
         $.ajax({
             url: '/user/index/verify-old-email',
             type: 'post',
@@ -259,6 +265,7 @@ function changePassword() {
         data.old_password = $.trim($('#old-password').val());
         data.new_password = $.trim($('#new-password').val());
         data.new_password_confirm = $.trim($('#password-confirm').val());
+        data._csrf = $.trim($('#csrf').val());
         $.ajax({
             url: '/user/index/change-password',
             type: 'post',
@@ -294,6 +301,7 @@ function resetPassword() {
         data.password = $.trim($('#password').val());
         data.password_confirm = $.trim($('#password-confirm').val());
         data.dynamic_key = $.trim($('#dynamic-key').val());
+        data._csrf = $.trim($('#csrf').val());
         $.ajax({
             url: '/user/index/reset-password',
             type: 'post',
@@ -329,6 +337,7 @@ function resetPasswordSendDynamicKey() {
         var data = {};
         data.username = name;
         data.email = email;
+        data._csrf = $.trim($('#csrf').val());
         $.ajax({
             url: '/user/index/send-dynamic-key',
             type: 'post',
@@ -368,6 +377,7 @@ function login() {
         data.password = $.trim($('#password').val());
         data.dynamic_key = $.trim($('#dynamic-key').val());
         data.remamberMe = $('.form input')[3].checked;
+        data._csrf = $.trim($('#csrf').val());
         $.ajax({
             url: '/user/index/login',
             type: 'post',
@@ -402,6 +412,7 @@ function loginSendDynamicKey() {
         var data = {};
         data.username = name;
         data.password = password;
+        data._csrf = $.trim($('#csrf').val());
         $.ajax({
             url: '/user/index/send-dynamic-key',
             type: 'post',

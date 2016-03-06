@@ -66,12 +66,6 @@ class IndexController extends \yii\web\Controller
         ];
     }
 
-    public function beforeAction($action)
-    {
-        $this->enableCsrfValidation = false;
-        return parent::beforeAction($action);
-    }
-
     public function actionIndex()
     {
         $admin = Admin::getCurrent();
@@ -89,7 +83,8 @@ class IndexController extends \yii\web\Controller
         }
 
         if (Yii::$app->request->isGet) {
-            return $this->render('login');
+            $csrf = Yii::$app->request->csrfToken;
+            return $this->render('login', ['csrf' => $csrf]);
         }
 
         $model = new LoginForm();
@@ -125,7 +120,8 @@ class IndexController extends \yii\web\Controller
     public function actionSignUp()
     {
         if (Yii::$app->request->isGet) {
-            return $this->render('sign-up');
+            $csrf = Yii::$app->request->csrfToken;
+            return $this->render('sign-up', ['csrf' => $csrf]);
         }
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post(), '') && $model->signup()) {
@@ -184,7 +180,8 @@ class IndexController extends \yii\web\Controller
     public function actionChangeEmail()
     {
         if (Yii::$app->request->isGet) {
-            return $this->render('change-email');
+            $csrf = Yii::$app->request->csrfToken;
+            return $this->render('change-email', ['csrf' => $csrf]);
         }
 
         $new_email = Yii::$app->request->post('new_email');
@@ -224,7 +221,8 @@ class IndexController extends \yii\web\Controller
     public function actionChangePassword()
     {
         if (Yii::$app->request->isGet) {
-            return $this->render('change-password');
+            $csrf = Yii::$app->request->csrfToken;
+            return $this->render('change-password', ['csrf' => $csrf]);
         }
 
         $old_password = Yii::$app->request->post('old_password');
@@ -251,7 +249,8 @@ class IndexController extends \yii\web\Controller
     public function actionContact()
     {
         if (Yii::$app->request->isGet) {
-            return $this->render('contact');
+            $csrf = Yii::$app->request->csrfToken;
+            return $this->render('contact', ['csrf' => $csrf]);
         }
 
         $model = new ContactForm();
@@ -264,7 +263,8 @@ class IndexController extends \yii\web\Controller
     public function actionResetPassword()
     {
         if (Yii::$app->request->isGet) {
-            return $this->render('reset-password');
+            $csrf = Yii::$app->request->csrfToken;
+            return $this->render('reset-password', ['csrf' => $csrf]);
         }
 
         $model = new ResetPasswordForm();

@@ -3,6 +3,7 @@
         <div class="form">
 
             <div class="contact">
+                <input type="hidden" id="csrf" value={$csrf}>
                 <label for="email"><h5>新邮箱</h5></label>
                 <input type="text" id="email">
                 <label for="dynamic-key"><h5>动态口令</h5></label>

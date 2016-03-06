@@ -3,6 +3,7 @@
         <div class="form">
 
             <div class="contact">
+                <input type="hidden" id="csrf" value={$csrf}>
                 <input type="hidden" id="event_id" value={$event_id}>
                 <label for="location-city"><h5>*所在城市</h5></label>
                 <input type="text" id="location-city">
