@@ -169,9 +169,10 @@ class EventController extends \yii\web\Controller
 
     public function actionViewRouteOnMap($id)
     {
-        $createMap = Event::createRouteMap($id);
-        if ($createMap) {
-            return $this->redirect('http://forfreedomandlove.com/find.route.html');
+        $event = Event::findOne($id);
+        if ($event) {
+            $name = substr(hash('md5', $id), 0, 10);
+            return $this->redirect("http://forfreedomandlove.com/maps/$name.html");
         }
         return $this->redirect(['/find/event/event/' . $id]);
     }

@@ -11,6 +11,7 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'defaultRoute' => 'user/index/index',
+    'language' => 'zh_CN',
     'homeUrl' => 'https://find.forfreedomandlove.com/',
 
     'modules' => [
@@ -49,8 +50,8 @@ return [
             'baseUrl' => 'https://find.forfreedomandlove.com',
 //            'suffix' => '.html',//设置URL后缀
             'rules' => [
-//                '<controller:[-\w]+>/<action:[-\w]+>' => '<controller>/<action>',
-//                '<controller:[-\w]+>/<action:[-\w]+>/<id:\d+>' => '<controller>/<action>',
+                '<controller:[-\w]+>/<action:[-\w]+>' => '<controller>/<action>',
+                '<controller:[-\w]+>/<action:[-\w]+>/<id:\d+>' => '<controller>/<action>',
 
                 '<id:\d+>' => 'find/event/event',
                 'find/event/event-lists/<is_finish:[01]>' => 'find/event/event-lists',

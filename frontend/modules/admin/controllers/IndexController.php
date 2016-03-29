@@ -15,6 +15,7 @@ class IndexController extends Controller
             'location-provider',
             'location-new',
             'location-current',
+            'message-record',
         ];
         return $this->render('index', ['models' => $models]);
     }

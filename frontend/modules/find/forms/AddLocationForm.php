@@ -95,15 +95,13 @@ class AddLocationForm extends Model
             $this->createLocationNew();
             $transaction->commit();
             return true;
+        } catch (\yii\db\Exception $e) {
+            $this->addError('title', 'fail to create record in database');
         } catch (\yii\base\Exception $e) {
-            $transaction->rollBack();
-            if ($e instanceof \yii\db\Exception) {
-                $this->addError('title', 'fail to create record in database');
-            } else {
-                $this->addError('title', $e->getMessage());
-            }
-            return false;
+            $this->addError('title', $e->getMessage());
         }
+        $transaction->rollBack();
+        return false;
     }
 
 
