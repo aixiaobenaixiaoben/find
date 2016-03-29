@@ -15,11 +15,16 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
+/**
+ * Class IndexController
+ * @package frontend\modules\user\controllers
+ */
 class IndexController extends \yii\web\Controller
 {
 
     /**
-     * @inheritdoc
+     * the rules for access control
+     * @return array
      */
     public function behaviors()
     {
@@ -55,7 +60,8 @@ class IndexController extends \yii\web\Controller
     }
 
     /**
-     * @inheritdoc
+     * the action to handle the error requests
+     * @return array
      */
     public function actions()
     {
@@ -66,12 +72,20 @@ class IndexController extends \yii\web\Controller
         ];
     }
 
+    /**
+     * Home Page of Site
+     * @return string content of home page
+     */
     public function actionIndex()
     {
         $admin = Admin::getCurrent();
         return $this->render('index', ['admin' => $admin]);
     }
 
+    /**
+     * login interface
+     * @return string|\yii\web\Response
+     */
     public function actionLogin()
     {
         if (!\Yii::$app->user->isGuest) {
@@ -95,6 +109,9 @@ class IndexController extends \yii\web\Controller
         }
     }
 
+    /**
+     * method to send dynamic key to user's email
+     */
     public function actionSendDynamicKey()
     {
         $model = new SendDynamicKeyForm();
@@ -106,17 +123,28 @@ class IndexController extends \yii\web\Controller
 
     }
 
+    /**
+     * logout interface
+     * @return \yii\web\Response
+     */
     public function actionLogout()
     {
         Yii::$app->user->logout();
         return $this->goHome();
     }
 
+    /**
+     *
+     * @return string content of page to display profile
+     */
     public function actionProfile()
     {
         return $this->render('profile', ['name' => User::getCurrent()->username]);
     }
 
+    /**
+     * @return string status for signing up
+     */
     public function actionSignUp()
     {
         if (Yii::$app->request->isGet) {
@@ -130,6 +158,10 @@ class IndexController extends \yii\web\Controller
         AjaxResponse::fail(null, $model->errors);
     }
 
+    /**
+     * active account after signing up or change email which will be used to identify user
+     * @return string|\yii\web\Response
+     */
     public function actionActivate()
     {
         $model = new ActivateAccountForm();
@@ -141,6 +173,10 @@ class IndexController extends \yii\web\Controller
     }
 
 
+    /**
+     * verify the old email of user
+     * @throws \yii\db\Exception
+     */
     public function actionVerifyOldEmail()
     {
         $new_email = Yii::$app->request->post('new_email');
@@ -177,6 +213,10 @@ class IndexController extends \yii\web\Controller
         }
     }
 
+    /**
+     * change the email to identify the account
+     * @return string whether or not the email has been changed successfully
+     */
     public function actionChangeEmail()
     {
         if (Yii::$app->request->isGet) {
@@ -218,6 +258,10 @@ class IndexController extends \yii\web\Controller
         AjaxResponse::success();
     }
 
+    /**
+     * change the password for the current account
+     * @return string whether or not the password has been changed successfully
+     */
     public function actionChangePassword()
     {
         if (Yii::$app->request->isGet) {
@@ -246,6 +290,10 @@ class IndexController extends \yii\web\Controller
     }
 
 
+    /**
+     * fill a form to contact with other users
+     * @return string form to contact with other users
+     */
     public function actionContact()
     {
         if (Yii::$app->request->isGet) {
@@ -260,6 +308,10 @@ class IndexController extends \yii\web\Controller
         AjaxResponse::fail(null, $model->errors);
     }
 
+    /**
+     * reset password for the current account
+     * @return string whether or not the password has been reset successfully
+     */
     public function actionResetPassword()
     {
         if (Yii::$app->request->isGet) {
