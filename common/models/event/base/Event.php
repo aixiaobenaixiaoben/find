@@ -23,6 +23,8 @@ use Yii;
  * @property \common\models\User $user
  * @property \common\models\location\LocationCurrent[] $locationCurrents
  * @property \common\models\location\LocationNew[] $locationNews
+ * @property \common\models\profile\Profile[] $profiles
+ * @property \common\models\message\MessageRecord[] $messageRecords
  */
 abstract class Event extends \yii\db\ActiveRecord
 {
@@ -105,6 +107,22 @@ abstract class Event extends \yii\db\ActiveRecord
     public function getLocationNews()
     {
         return $this->hasMany(\common\models\location\LocationNew::className(), ['event_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProfiles()
+    {
+        return $this->hasMany(\common\models\profile\Profile::className(), ['event_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMessageRecords()
+    {
+        return $this->hasMany(\common\models\message\MessageRecord::className(), ['event_id' => 'id']);
     }
 
 

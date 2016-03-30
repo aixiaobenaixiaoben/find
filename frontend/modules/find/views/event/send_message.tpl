@@ -4,54 +4,42 @@
 
             <div class="contact">
                 <input type="hidden" id="csrf" value={$csrf}>
+                <input type="hidden" id="event_id" value={$event.id}>
+                <input type="hidden" id="profile_id" value={$profile.id}>
+                <input type="hidden" id="location_current_id" value={$current.id}>
 
                 <label for="name"><h5>*失踪儿童姓名</h5></label>
-                <input type="text" id="name">
+                <input type="text" id="name" value={$profile.name}>
                 <label for="age"><h5>*年龄</h5></label>
-                <input type="text" id="age">
+                <input type="text" id="age" value={$profile.age}>
                 <div class="for-gender">性别&nbsp&nbsp&nbsp
-                    男 <input type="radio" name="gender" value="male" checked>&nbsp&nbsp
-                    女 <input type="radio" name="gender" value="female">
+                    男 <input type="radio" name="gender" value="male" {if $profile.gender=='male'}checked{/if} >&nbsp&nbsp
+                    女 <input type="radio" name="gender" value="female" {if $profile.gender=='female'}checked{/if}>
                 </div>
                 <br>
                 <label for="height"><h5>*身高(厘米)</h5></label>
-                <input type="text" id="height">
+                <input type="text" id="height" value={$profile.height}>
                 <label for="clothes"><h5>*衣着</h5></label>
-                <input type="text" id="clothes">
+                <input type="text" id="clothes" value={$profile.dress}>
                 <label for="appearance"><h5>外貌特征简要描述</h5></label>
                 <textarea style="background-color:#2E2938" rows="5" id="appearance"
-                          placeholder="the summary of appearance"></textarea>
+                        {if $profile.appearance==''} placeholder="the summary of appearance"{/if}>{$profile.appearance}</textarea>
 
-                <br>
-                <label for="theme"><h5>*事件概述</h5></label>
-                <input type="text" id="theme">
-                <label for="description"><h5>详情</h5></label>
-                <textarea style="background-color:#2E2938" rows="5" id="description"
-                          placeholder="Describe the event here"></textarea>
                 <label for="city"><h5>*所在城市</h5></label>
-                <input type="text" id="city">
-                <label for="title-from-provider"><h5>*事件具体地点(尽量详细)</h5></label>
-                <input type="text" id="title-from-provider">
+                <input type="text" id="city" value={$event.city}>
+                <label for="location"><h5>*具体位置(尽量详细)</h5></label>
+                <input type="text" id="location" value={$current.title}>
 
-                <div class="for-urgent-level">紧急程度&nbsp&nbsp&nbsp
-                    mild <input type="radio" name="urgent-level" value="mild" checked>&nbsp&nbsp
-                    urgent <input type="radio" name="urgent-level" value="urgent">&nbsp&nbsp
-                    emergency <input type="radio" name="urgent-level" value="emergency">
-                </div>
-                <br>
-
-                <label for="datetimepicker"><h5>*事件发生时间</h5></label>
-                <input type="text" class="datetimepicker" id="occur_at">
-                <label id="create-event-result"><h5>&nbsp</h5></label>
+                <label id="send-message-result"><h5>&nbsp</h5></label>
 
                 <div class="bottom-button">
                     <div class="large-6 columns">
-                        <a href="/user/index/index">
+                        <a href="/find/event/event/{$event.id}">
                             <button><h5>取消</h5></button>
                         </a>
                     </div>
                     <div class="large-6 columns">
-                        <button id="create-event"><h5>新建事件</h5></button>
+                        <button id="send-message"><h5>确认发送短信</h5></button>
                     </div>
                 </div>
             </div>

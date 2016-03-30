@@ -11,12 +11,19 @@ use common\exceptions\MapWithTitleException;
 use common\models\event\Event;
 use common\models\location\LocationNew;
 use common\models\location\LocationProvider;
+use common\models\profile\Profile;
 use Yii;
 use yii\base\Model;
-use yii\db\Exception;
 
 class CreateEventForm extends Model
 {
+    public $name;
+    public $age;
+    public $gender;
+    public $height;
+    public $dress;
+    public $appearance;
+
     public $theme;
     public $description;
     public $urgent;
@@ -25,20 +32,26 @@ class CreateEventForm extends Model
     public $title_from_provider;
 
     private $_event;
+    private $_profile;
     private $_provider;
     private $_location_new;
 
     public function rules()
     {
         return [
-            [['theme', 'urgent', 'city', 'title_from_provider', 'occur_at'], 'required'],
-            [['theme', 'description', 'title_from_provider'], 'string', 'length' => [4, 255]],
-            ['city', 'string', 'min' => 2],
+            [['name', 'age', 'gender', 'height', 'dress', 'theme', 'urgent', 'city', 'title_from_provider', 'occur_at'], 'required'],
+            [['dress', 'appearance', 'theme', 'description', 'title_from_provider'], 'string', 'length' => [4, 255]],
+            [['name','city'], 'string', 'length' => [2, 40]],
+            [['age', 'height'], 'integer'],
             ['occur_at', 'date', 'format' => 'yyyy-MM-dd H:i'],
             ['urgent', 'in', 'range' => [
                 Event::URGENT_MILD,
                 Event::URGENT_URGENT,
                 Event::URGENT_EMERGENCY,
+            ]],
+            ['gender', 'in', 'range' => [
+                Profile::GENDER_MALE,
+                Profile::GENDER_FEMALE,
             ]],
         ];
     }
@@ -50,6 +63,7 @@ class CreateEventForm extends Model
         $transaction = Yii::$app->db->beginTransaction();
         try {
             $this->createEvent();
+            $this->createProfile();
             $this->createProvider();
             $this->createLocationNew();
             $transaction->commit();
@@ -77,6 +91,22 @@ class CreateEventForm extends Model
 
         $event->save();
         $this->_event = $event;
+    }
+
+    public function createProfile()
+    {
+        $profile = new Profile();
+        $profile->attributes = [
+            'event_id' => $this->getEvent()->id,
+            'name' => $this->name,
+            'age' => $this->age,
+            'gender' => $this->gender,
+            'height' => $this->height,
+            'dress' => $this->dress,
+            'appearance' => $this->appearance,
+        ];
+        $profile->save();
+        $this->_profile = $profile;
     }
 
     public function createProvider()
@@ -117,6 +147,14 @@ class CreateEventForm extends Model
     public function getEvent()
     {
         return $this->_event;
+    }
+
+    /**
+     * @return Profile
+     */
+    public function getProfile()
+    {
+        return $this->_profile;
     }
 
     /**

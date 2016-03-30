@@ -12,6 +12,7 @@ class IndexController extends Controller
             'user',
             'admin',
             'event',
+            'profile',
             'location-provider',
             'location-new',
             'location-current',

@@ -22,6 +22,33 @@
             <div class="content">
                 <table>
                     <tr>
+                        <td><h5>姓名:</h5></td>
+                        <td><h5> {$profile.name}</h5></td>
+                    </tr>
+                    <tr>
+                        <td><h5>年龄:</h5></td>
+                        <td><h5> {$profile.age}</h5></td>
+                    </tr>
+                    <tr>
+                        <td><h5>性别:</h5></td>
+                        <td><h5> {$profile.gender}</h5></td>
+                    </tr>
+                    <tr>
+                        <td><h5>身高:</h5></td>
+                        <td><h5> {$profile.height}cm</h5></td>
+                    </tr>
+                    <tr>
+                        <td><h5>穿着:</h5></td>
+                        <td><h5> {$profile.dress}</h5></td>
+                    </tr>
+                    {if $profile.appearance!=''}
+                        <tr>
+                            <td><h5>外貌特征:</h5></td>
+                            <td><h5> {$profile.appearance}</h5></td>
+                        </tr>
+                    {/if}
+
+                    <tr>
                         <td><h5>紧急程度:</h5></td>
                         <td><h5>{$event.urgent|upper}</h5></td>
                     </tr>
@@ -107,7 +134,7 @@
                     </a>
                 </div>
                 <div class="row">
-                    <a href="/find/event/send-message/{$event.id}">
+                    <a href="/find/event/pre-send-message/{$event.id}">
                         <button class=""><h4>短信通知当前位置附近民众</h4></button>
                     </a>
                 </div>

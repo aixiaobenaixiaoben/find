@@ -23,8 +23,55 @@ $(function () {
 
     createEvent();
     addLocation();
+    sendMessage();
 });
 
+function sendMessage() {
+    $('#send-message').click(function () {
+        $('.form input:text').each(function () {
+            if (!$.trim($(this).val())) {
+                $(this).css({'border': '1px dotted red'});
+                return false;
+            } else {
+                $(this).css({'border': 'none'});
+            }
+        });
+        var data = {};
+        data.name = $.trim($('#name').val());
+        data.age = $.trim($('#age').val());
+        data.height = $.trim($('#height').val());
+        data.gender = $('.form input:radio:checked').val();
+        data.dress = $.trim($('#clothes').val());
+        data.appearance = $.trim($('#appearance').val());
+
+        data.city = $.trim($('#city').val());
+        data.location = $.trim($('#location').val());
+        data.event_id = $.trim($('#event_id').val());
+        data.profile_id = $.trim($('#profile_id').val());
+        data.location_current_id = $.trim($('#location_current_id').val());
+        data._csrf = $.trim($('#csrf').val());
+
+        $.ajax({
+            url: '/find/event/send-message',
+            type: 'post',
+            data: data,
+            dataType: 'json',
+            success: function (res) {
+                if (res.success) {
+                    location.href = '/find/event/event/' + data.event_id;
+                } else {
+                    var message = '';
+                    for (var key in res.message) {
+                        message += res.message[key];
+                        break;
+                    }
+                    $('#send-message-result h5').html(message);
+                }
+            }
+        });
+    });
+
+}
 
 function addLocation() {
     $('#add-location').click(function () {
@@ -81,11 +128,18 @@ function createEvent() {
             }
         });
         var data = {};
+        data.name = $.trim($('#name').val());
+        data.age = $.trim($('#age').val());
+        data.height = $.trim($('#height').val());
+        data.gender = $('.form .for-gender input:radio:checked').val();
+        data.dress = $.trim($('#clothes').val());
+        data.appearance = $.trim($('#appearance').val());
+
         data.theme = $.trim($('#theme').val());
         data.description = $.trim($('#description').val());
         data.city = $.trim($('#city').val());
         data.title_from_provider = $.trim($('#title-from-provider').val());
-        data.urgent = $('.form input:radio:checked').val()
+        data.urgent = $('.form .for-urgent-level input:radio:checked').val();
         data.occur_at = $.trim($('#occur_at').val());
         data._csrf = $.trim($('#csrf').val());
 
