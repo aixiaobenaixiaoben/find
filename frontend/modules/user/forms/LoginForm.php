@@ -11,9 +11,13 @@ use yii\base\Model;
  */
 class LoginForm extends Model
 {
+    /** @var  String *用户名 */
     public $username;
+    /** @var  String *登陆密码 */
     public $password;
+    /** @var  String *动态口令,由字符数字-_组成 */
     public $dynamic_key;
+    /** @var bool *是否记住登陆状态 */
     public $rememberMe = true;
 
     private $_user;

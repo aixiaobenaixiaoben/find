@@ -11,8 +11,11 @@ use yii\base\Model;
  */
 class ContactForm extends Model
 {
+    /** @var  String *接受邮件的邮箱 */
     public $email;
+    /** @var  String *邮件主题 */
     public $subject;
+    /** @var  String *邮件正文 */
     public $body;
 
     /**

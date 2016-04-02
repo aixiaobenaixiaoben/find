@@ -25,7 +25,7 @@ class MessageRecordController extends Controller
 
 
     /**
-     * Lists all MessageRecord models.
+     **列出所有的短信发送记录.
      * @return mixed
      */
     public function actionIndex()
@@ -45,7 +45,7 @@ class MessageRecordController extends Controller
     }
 
     /**
-     * Displays a single MessageRecord model.
+     **显示一个短信发送记录的详细信息.
      * @param integer $id
      *
      * @return mixed
@@ -62,8 +62,7 @@ class MessageRecordController extends Controller
     }
 
     /**
-     * Creates a new MessageRecord model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     **创建一个新的短信发送记录.如果创建成功,浏览器会跳转到该短信发送记录的详情页面.
      * @return mixed
      */
     public function actionCreate()
@@ -84,8 +83,7 @@ class MessageRecordController extends Controller
     }
 
     /**
-     * Updates an existing MessageRecord model.
-     * If update is successful, the browser will be redirected to the 'view' page.
+     **编辑更新一个短信发送记录的详细信息.如果更新成功,浏览器会跳转到该短信发送记录的详情页面.
      * @param integer $id
      * @return mixed
      */
@@ -103,8 +101,7 @@ class MessageRecordController extends Controller
     }
 
     /**
-     * Deletes an existing MessageRecord model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
+     **删除一个短信发送记录.如果删除成功,浏览器会跳转到短信发送记录列表页面.
      * @param integer $id
      * @return mixed
      */

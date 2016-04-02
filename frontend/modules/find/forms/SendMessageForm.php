@@ -18,17 +18,28 @@ use yii\base\Model;
 class SendMessageForm extends Model
 {
 
+    /** @var  String *儿童姓名 */
     public $name;
+    /** @var  Integer *儿童年龄 */
     public $age;
+    /** @var  Enum *性别,限于(male,female) */
     public $gender;
+    /** @var  Integer *身高 */
     public $height;
+    /** @var  String *衣着 */
     public $dress;
+    /** @var  String *外贸描述(选填) */
     public $appearance;
 
+    /** @var  Integer *事件ID */
     public $event_id;
+    /** @var  Integer *涉事儿童信息ID */
     public $profile_id;
+    /** @var  Integer *当前节点ID */
     public $location_current_id;
+    /** @var  String *事件发生城市 */
     public $city;
+    /** @var  String *事件发生详细地点 */
     public $location;
 
     private $_event = null;

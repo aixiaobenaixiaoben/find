@@ -18,13 +18,20 @@ use yii\db\Exception;
 
 class AddLocationForm extends Model
 {
+    /** @var  Integer *事件ID */
     public $event_id;
+    /** @var  String *新节点发生城市 */
     public $city;
+    /** @var  String *新节点发生位置 */
     public $title_from_provider;
+    /** @var  Date *新节点发生日期时间,格式为:yyyy-MM-dd H:i */
     public $occur_at;
+    /** @var  Date *该信息提供时间,格式为:yyyy-MM-dd H:i */
     public $provided_at;
+    /** @var  Enum *信息来源分类,限于(police,monitor_system,people) */
     public $identity_kind;
 
+    /** @var  String *手机号码(当identity_kind为people即信息提供者为普通民众时该参数必须) */
     public $identity_info;
 
     private $_event;

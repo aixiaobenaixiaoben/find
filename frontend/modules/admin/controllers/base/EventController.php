@@ -25,7 +25,7 @@ class EventController extends Controller
 
 
     /**
-     * Lists all Event models.
+     **列出所有的事件.
      * @return mixed
      */
     public function actionIndex()
@@ -45,7 +45,7 @@ class EventController extends Controller
     }
 
     /**
-     * Displays a single Event model.
+     **显示一个事件的详细信息.
      * @param integer $id
      *
      * @return mixed
@@ -62,8 +62,7 @@ class EventController extends Controller
     }
 
     /**
-     * Creates a new Event model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     **创建一个新的事件.如果创建成功,浏览器会跳转到该事件的详情页面.
      * @return mixed
      */
     public function actionCreate()
@@ -84,8 +83,7 @@ class EventController extends Controller
     }
 
     /**
-     * Updates an existing Event model.
-     * If update is successful, the browser will be redirected to the 'view' page.
+     **编辑更新一个事件的详情.如果更新成功,浏览器会跳转到该事件的详情页面.
      * @param integer $id
      * @return mixed
      */
@@ -103,8 +101,7 @@ class EventController extends Controller
     }
 
     /**
-     * Deletes an existing Event model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
+     **删除一个事件.如果删除成功,浏览器会跳转到事件列表页面.
      * @param integer $id
      * @return mixed
      */

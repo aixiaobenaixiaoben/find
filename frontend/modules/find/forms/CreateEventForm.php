@@ -17,18 +17,30 @@ use yii\base\Model;
 
 class CreateEventForm extends Model
 {
+    /** @var  String *儿童姓名 */
     public $name;
+    /** @var  Integer *儿童年龄 */
     public $age;
+    /** @var  Enum *性别,限于(male,female) */
     public $gender;
+    /** @var  Integer *身高 */
     public $height;
+    /** @var  String *衣着 */
     public $dress;
+    /** @var  String *外贸描述(选填) */
     public $appearance;
 
+    /** @var  String *事件主题 */
     public $theme;
+    /** @var  String *事件详细描述(选填) */
     public $description;
+    /** @var  Enum *紧急程度,限于(mild,urgent,emergency) */
     public $urgent;
+    /** @var  Date *事件发生日期时间,格式为:yyyy-MM-dd H:i */
     public $occur_at;
+    /** @var  String *事件发生城市 */
     public $city;
+    /** @var  String *事件发生地点 */
     public $title_from_provider;
 
     private $_event;
@@ -41,7 +53,7 @@ class CreateEventForm extends Model
         return [
             [['name', 'age', 'gender', 'height', 'dress', 'theme', 'urgent', 'city', 'title_from_provider', 'occur_at'], 'required'],
             [['dress', 'appearance', 'theme', 'description', 'title_from_provider'], 'string', 'length' => [4, 255]],
-            [['name','city'], 'string', 'length' => [2, 40]],
+            [['name', 'city'], 'string', 'length' => [2, 40]],
             [['age', 'height'], 'integer'],
             ['occur_at', 'date', 'format' => 'yyyy-MM-dd H:i'],
             ['urgent', 'in', 'range' => [

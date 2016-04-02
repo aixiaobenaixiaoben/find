@@ -8,10 +8,15 @@ use yii\base\Model;
 
 class ResetPasswordForm extends Model
 {
+    /** @var  String *用户名 */
     public $username;
+    /** @var  String *重设的登陆密码 */
     public $password;
+    /** @var  String *确认重设的登陆密码 */
     public $password_confirm;
+    /** @var  String *用来认证该账号的的邮箱 */
     public $email;
+    /** @var  String *动态口令,由字符数字-_组成 */
     public $dynamic_key;
 
     private $_user;

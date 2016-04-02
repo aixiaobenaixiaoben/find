@@ -13,7 +13,9 @@ use yii\base\Model;
 
 class ActivateAccountForm extends Model
 {
+    /** @var  Integer *用户ID */
     public $user_id;
+    /** @var  String *8位激活码,由字符数字_-组成 */
     public $key;
 
     private $_user;

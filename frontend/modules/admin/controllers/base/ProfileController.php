@@ -5,7 +5,7 @@
 namespace frontend\modules\admin\controllers\base;
 
 use common\models\profile\Profile;
-    use frontend\modules\admin\models\ProfileSearch;
+use frontend\modules\admin\models\ProfileSearch;
 use yii\web\Controller;
 use yii\web\HttpException;
 use yii\helpers\Url;
@@ -13,139 +13,136 @@ use yii\filters\AccessControl;
 use dmstr\bootstrap\Tabs;
 
 /**
-* ProfileController implements the CRUD actions for Profile model.
-*/
+ * ProfileController implements the CRUD actions for Profile model.
+ */
 class ProfileController extends Controller
 {
-/**
-* @var boolean whether to enable CSRF validation for the actions in this controller.
-* CSRF validation is enabled only when both this property and [[Request::enableCsrfValidation]] are true.
-*/
-public $enableCsrfValidation = false;
+    /**
+     * @var boolean whether to enable CSRF validation for the actions in this controller.
+     * CSRF validation is enabled only when both this property and [[Request::enableCsrfValidation]] are true.
+     */
+    public $enableCsrfValidation = false;
 
 
-/**
-* Lists all Profile models.
-* @return mixed
-*/
-public function actionIndex()
-{
-    $searchModel  = new ProfileSearch;
-    $dataProvider = $searchModel->search($_GET);
+    /**
+     **列出所有的事件中的涉事儿童个人信息.
+     * @return mixed
+     */
+    public function actionIndex()
+    {
+        $searchModel = new ProfileSearch;
+        $dataProvider = $searchModel->search($_GET);
 
-Tabs::clearLocalStorage();
+        Tabs::clearLocalStorage();
 
-Url::remember();
-\Yii::$app->session['__crudReturnUrl'] = null;
+        Url::remember();
+        \Yii::$app->session['__crudReturnUrl'] = null;
 
-return $this->render('index', [
-'dataProvider' => $dataProvider,
-    'searchModel' => $searchModel,
-]);
-}
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+        ]);
+    }
 
-/**
-* Displays a single Profile model.
-* @param integer $id
-*
-* @return mixed
-*/
-public function actionView($id)
-{
-\Yii::$app->session['__crudReturnUrl'] = Url::previous();
-Url::remember();
-Tabs::rememberActiveState();
+    /**
+     **显示一个涉事儿童的详细信息.
+     * @param integer $id
+     *
+     * @return mixed
+     */
+    public function actionView($id)
+    {
+        \Yii::$app->session['__crudReturnUrl'] = Url::previous();
+        Url::remember();
+        Tabs::rememberActiveState();
 
-return $this->render('view', [
-'model' => $this->findModel($id),
-]);
-}
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
 
-/**
-* Creates a new Profile model.
-* If creation is successful, the browser will be redirected to the 'view' page.
-* @return mixed
-*/
-public function actionCreate()
-{
-$model = new Profile;
+    /**
+     **创建一个新的涉事儿童的个人信息.如果创建成功,浏览器会跳转到该涉事儿童个人信息的详情页面.
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+        $model = new Profile;
 
-try {
-if ($model->load($_POST) && $model->save()) {
-return $this->redirect(Url::previous());
-} elseif (!\Yii::$app->request->isPost) {
-$model->load($_GET);
-}
-} catch (\Exception $e) {
-$msg = (isset($e->errorInfo[2]))?$e->errorInfo[2]:$e->getMessage();
-$model->addError('_exception', $msg);
-}
-return $this->render('create', ['model' => $model]);
-}
+        try {
+            if ($model->load($_POST) && $model->save()) {
+                return $this->redirect(Url::previous());
+            } elseif (!\Yii::$app->request->isPost) {
+                $model->load($_GET);
+            }
+        } catch (\Exception $e) {
+            $msg = (isset($e->errorInfo[2])) ? $e->errorInfo[2] : $e->getMessage();
+            $model->addError('_exception', $msg);
+        }
+        return $this->render('create', ['model' => $model]);
+    }
 
-/**
-* Updates an existing Profile model.
-* If update is successful, the browser will be redirected to the 'view' page.
-* @param integer $id
-* @return mixed
-*/
-public function actionUpdate($id)
-{
-$model = $this->findModel($id);
+    /**
+     **编辑更新一个涉事儿童的详细个人信息.如果更新成功,浏览器会跳转到该涉事儿童个人信息的详情页面.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
 
-if ($model->load($_POST) && $model->save()) {
-return $this->redirect(Url::previous());
-} else {
-return $this->render('update', [
-'model' => $model,
-]);
-}
-}
+        if ($model->load($_POST) && $model->save()) {
+            return $this->redirect(Url::previous());
+        } else {
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        }
+    }
 
-/**
-* Deletes an existing Profile model.
-* If deletion is successful, the browser will be redirected to the 'index' page.
-* @param integer $id
-* @return mixed
-*/
-public function actionDelete($id)
-{
-try {
-$this->findModel($id)->delete();
-} catch (\Exception $e) {
-$msg = (isset($e->errorInfo[2]))?$e->errorInfo[2]:$e->getMessage();
-\Yii::$app->getSession()->addFlash('error', $msg);
-return $this->redirect(Url::previous());
-}
+    /**
+     **删除一个涉事儿童的个人信息.如果删除成功,浏览器会跳转到涉事儿童个人信息列表页面.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionDelete($id)
+    {
+        try {
+            $this->findModel($id)->delete();
+        } catch (\Exception $e) {
+            $msg = (isset($e->errorInfo[2])) ? $e->errorInfo[2] : $e->getMessage();
+            \Yii::$app->getSession()->addFlash('error', $msg);
+            return $this->redirect(Url::previous());
+        }
 
 // TODO: improve detection
-$isPivot = strstr('$id',',');
-if ($isPivot == true) {
-return $this->redirect(Url::previous());
-} elseif (isset(\Yii::$app->session['__crudReturnUrl']) && \Yii::$app->session['__crudReturnUrl'] != '/') {
-Url::remember(null);
-$url = \Yii::$app->session['__crudReturnUrl'];
-\Yii::$app->session['__crudReturnUrl'] = null;
+        $isPivot = strstr('$id', ',');
+        if ($isPivot == true) {
+            return $this->redirect(Url::previous());
+        } elseif (isset(\Yii::$app->session['__crudReturnUrl']) && \Yii::$app->session['__crudReturnUrl'] != '/') {
+            Url::remember(null);
+            $url = \Yii::$app->session['__crudReturnUrl'];
+            \Yii::$app->session['__crudReturnUrl'] = null;
 
-return $this->redirect($url);
-} else {
-return $this->redirect(['index']);
-}
-}
+            return $this->redirect($url);
+        } else {
+            return $this->redirect(['index']);
+        }
+    }
 
-/**
-* Finds the Profile model based on its primary key value.
-* If the model is not found, a 404 HTTP exception will be thrown.
-* @param integer $id
-* @return Profile the loaded model
-* @throws HttpException if the model cannot be found
-*/
-protected function findModel($id)
-{
-if (($model = Profile::findOne($id)) !== null) {
-return $model;
-} else {
-throw new HttpException(404, 'The requested page does not exist.');
-}
-}
+    /**
+     * Finds the Profile model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Profile the loaded model
+     * @throws HttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = Profile::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new HttpException(404, 'The requested page does not exist.');
+        }
+    }
 }

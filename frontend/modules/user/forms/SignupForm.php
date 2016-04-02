@@ -13,8 +13,11 @@ use yii\db\Exception;
  */
 class SignupForm extends Model
 {
+    /** @var  String *用户名 */
     public $username;
+    /** @var  String *将要用来认证该账号的邮箱(不可和已用于认证其他账号的邮箱重复) */
     public $email;
+    /** @var  String *登陆密码 */
     public $password;
 
     public function init()

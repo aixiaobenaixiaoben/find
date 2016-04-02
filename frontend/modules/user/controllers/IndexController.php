@@ -23,7 +23,7 @@ class IndexController extends \yii\web\Controller
 {
 
     /**
-     * the rules for access control
+     **用户访问权限规则,包括用户只能在登陆状态下访问的方法,和访问各个方法时只能选择的请求方法的种类(post还是get).
      * @return array
      */
     public function behaviors()
@@ -60,7 +60,7 @@ class IndexController extends \yii\web\Controller
     }
 
     /**
-     * the action to handle the error requests
+     **处理系统所有错误请求或者HTTP异常的方法,将显示一个错误页面,包括错误码和错误信息摘要.
      * @return array
      */
     public function actions()
@@ -73,7 +73,7 @@ class IndexController extends \yii\web\Controller
     }
 
     /**
-     * Home Page of Site
+     **显示主页.
      * @return string content of home page
      */
     public function actionIndex()
@@ -83,7 +83,7 @@ class IndexController extends \yii\web\Controller
     }
 
     /**
-     * login interface
+     **显示登陆页面(get),登陆(post).
      * @return string|\yii\web\Response
      */
     public function actionLogin()
@@ -110,7 +110,7 @@ class IndexController extends \yii\web\Controller
     }
 
     /**
-     * method to send dynamic key to user's email
+     **向账号的认证邮箱发送动态密码,适用场景为:登陆,忘记并重设密码,修改邮箱.
      */
     public function actionSendDynamicKey()
     {
@@ -124,7 +124,7 @@ class IndexController extends \yii\web\Controller
     }
 
     /**
-     * logout interface
+     **登出.
      * @return \yii\web\Response
      */
     public function actionLogout()
@@ -134,7 +134,7 @@ class IndexController extends \yii\web\Controller
     }
 
     /**
-     *
+     **进入个人中心页面.
      * @return string content of page to display profile
      */
     public function actionProfile()
@@ -143,6 +143,7 @@ class IndexController extends \yii\web\Controller
     }
 
     /**
+     **显示注册页面(get);已登陆状态下注册一个新账号,会将激活新账号的链接发到新注册账号的认证邮箱(post).
      * @return string status for signing up
      */
     public function actionSignUp()
@@ -159,7 +160,7 @@ class IndexController extends \yii\web\Controller
     }
 
     /**
-     * active account after signing up or change email which will be used to identify user
+     **新注册用户或者修改认证邮箱的用户点击账号当前认证邮箱中的激活链接以激活账号.
      * @return string|\yii\web\Response
      */
     public function actionActivate()
@@ -174,7 +175,7 @@ class IndexController extends \yii\web\Controller
 
 
     /**
-     * verify the old email of user
+     **在修改当前账号的认证邮箱的时候,会通过向账号的当前认证邮箱发送动态密码来验证当前邮箱,确保修改认证邮箱的操作是认证用户所为.
      * @throws \yii\db\Exception
      */
     public function actionVerifyOldEmail()
@@ -214,7 +215,7 @@ class IndexController extends \yii\web\Controller
     }
 
     /**
-     * change the email to identify the account
+     **显示修改邮箱的表单(get);修改用户的认证邮箱(post),若修改成功,将账号变为未激活状态,并自动下线,用户需要到新的认证邮箱中点击激活链接对账号进行激活.
      * @return string whether or not the email has been changed successfully
      */
     public function actionChangeEmail()
@@ -259,7 +260,7 @@ class IndexController extends \yii\web\Controller
     }
 
     /**
-     * change the password for the current account
+     **显示修改账号登陆密码的表单(get),修改账号的登陆密码(post).
      * @return string whether or not the password has been changed successfully
      */
     public function actionChangePassword()
@@ -291,7 +292,7 @@ class IndexController extends \yii\web\Controller
 
 
     /**
-     * fill a form to contact with other users
+     **显示向某个邮箱发送邮件的表单(get),向某个邮箱发送一封邮件(post).
      * @return string form to contact with other users
      */
     public function actionContact()
@@ -309,7 +310,7 @@ class IndexController extends \yii\web\Controller
     }
 
     /**
-     * reset password for the current account
+     **显示重设密码的表单(get),重新设置登陆密码(post).
      * @return string whether or not the password has been reset successfully
      */
     public function actionResetPassword()

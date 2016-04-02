@@ -15,8 +15,11 @@ use yii\base\Model;
 
 class SendDynamicKeyForm extends Model
 {
+    /** @var  String *用户名 */
     public $username;
+    /** @var  String *登陆密码(可动态口令组合可选) */
     public $password = null;
+    /** @var  String *用来认证该账号的的邮箱(和密码组合可选) */
     public $email = null;
 
     private $_user;

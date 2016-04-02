@@ -25,7 +25,7 @@ class AdminController extends Controller
 
 
     /**
-     * Lists all Admin models.
+     **列出系统中所有的管理员.
      * @return mixed
      */
     public function actionIndex()
@@ -45,7 +45,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Displays a single Admin model.
+     **显示一个管理员的详细信息.
      * @param integer $id
      *
      * @return mixed
@@ -62,8 +62,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Creates a new Admin model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     **创建一个新的管理员.如果创建成功,浏览器会跳转到该管理员的详情页面.
      * @return mixed
      */
     public function actionCreate()
@@ -84,8 +83,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Updates an existing Admin model.
-     * If update is successful, the browser will be redirected to the 'view' page.
+     **编辑更新一个已有的管理员的详细信息.如果更新成功,浏览器会跳转到该管理员的详情页面.
      * @param integer $id
      * @return mixed
      */
@@ -103,8 +101,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Deletes an existing Admin model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
+     **删除一个管理员.如果删除成功,浏览器会跳转到该管理员列表页面.
      * @param integer $id
      * @return mixed
      */
